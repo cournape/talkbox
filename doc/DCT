@@ -1,0 +1,62 @@
+About DCT, on http://www.dsprelated.com/showmessage/7328/1.php:
+
+> I am trying to use IFFT to calculate the IDCT(Type 4). Can any one
+> please explain how I am supposed to go about it. I am familiar with
+> the procedure required to evaluate IDCT (Type  I ) using IFFT but
+> cannot seem to figure out how it is going to work for IDCT Type - 4.
+
+Our FFTW library (www.fftw.org) has an implementation of the DCT-IV
+that works like this (i.e., via an equal size real-data FFT).  There
+are a few different algorithms to choose from.  The simplest that I
+know of is:
+
+S. C. Chan and K. L. Ho, "Direct methods for computing discrete
+sinusoidal transforms," IEE Proceedings F 137 (6), 433-442 (1990).
+
+which re-expresses it as an equal-size DCT-II or DCT-III, which you
+can then re-express as a real-data DFT by a variety of means, e.g. the
+one on FFTPACK, also described in John Makhoul, "A fast cosine
+transform in one and two dimensions," IEEE Trans. on Acoust. Speech
+and Sig. Proc., ASSP-28 (1), 27-34 (1980).  However, this Chan/Ho
+algorithm has a serious flaw: its rms numerical errors grow as
+O(sqrt(n)), vs. O(sqrt(log n)) for the Cooley-Tukey FFT.
+
+To get O(sqrt(log n)) errors for the DCT-IV for *even* sizes, FFTW
+uses the method from:
+
+Zhongde Wang, "On computing the discrete Fourier and cosine
+transforms," IEEE Trans. Acoust. Speech Sig. Proc. ASSP-33 (4),
+1341-1344 (1985).
+
+to re-express it as a pair of DCT-III (or DCT-II) problems, which are
+then solved as above.   For accurate treatment of odd sizes, we use
+the algorithm from S. C. Chan and K. L. Ho, "Fast algorithms for
+computing the discrete cosine transform," IEEE Trans. Circuits Systems
+II: Analog & Digital Sig. Proc. 39 (3), 185-190 (1992) [ this paper
+has errors, however...see our source code ].
+
+The problem of algorithms with poor numerical characteristics seems to
+be widespread in the DCT literature.  For example, the standard
+algorithm to re-express the DCT-I as a real-FFT of the same size (used
+in FFTPACK, Numerical Recipes, etc.), is also "unstable" (i.e.,
+O(sqrt(n)) errors).  On the other hand, you are usually safe with any
+algorithm that is essentially Cooley-Tukey specialized for the
+symmetries of the DCT (algorithms that recursively break a DCT into
+smaller DCTs tend to be of this type).
+
+Of course, FFTPACK has been around for 30 years and I've never heard
+of anyone complain about the O(sqrt(n)) errors in its DCT-I code. 
+Probably, this is because most people only compute DCTs of relatively
+small datasets.
+
+Cordially,
+Steven G. Johnson
+
+PS. For people in this thread wondering what a DCT IV is, see e.g.
+http://en.wikipedia.org/wiki/Discrete_cosine_transform  ...the
+different types of DCT all correspond to DFTs of real-even data, with
+various half-sample shifts in the input and output, with
+correspondingly different boundary conditions.  The main application
+of the DCT-IV that I've seen is for the MDCT (any DCT-IV algorithm
+trivially gives you an MDCT algorithm), but I'd be interested in
+hearing of other uses.
