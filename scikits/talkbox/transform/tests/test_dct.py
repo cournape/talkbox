@@ -1,10 +1,11 @@
 import numpy as np
-from numpy.testing import *
+from numpy.testing import TestCase, assert_array_almost_equal
 
 from scikits.talkbox.transform.dct import direct_dctii
 
-class TestDCTII(TestCase):
-    def test_simple(self):
+class TestDCTTypeII(TestCase):
+    def test_simple_direct(self):
+        """Test 1d input, direct implementation."""
         X0 = np.linspace(0, 10, 11)
         X1 = np.linspace(0, 10, 10)
 
@@ -16,5 +17,5 @@ class TestDCTII(TestCase):
             -1.07406322530303, 0, -0.35136418446315, 0, -0.14207821409532, 0,
             -0.03984144487100])
 
-        assert_array_almost_equal(Y0, dct(X0))
-        assert_array_almost_equal(Y1, dct(X1))
+        assert_array_almost_equal(Y0, direct_dctii(X0))
+        assert_array_almost_equal(Y1, direct_dctii(X1))
