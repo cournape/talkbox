@@ -5,7 +5,7 @@ import numpy as np
 # Definition of DCT in 1d (II type)
 # dct(u) = a(u) \sum_{i=0}^{N-1}{f(x)cos(\pi(x + 0.5)u}
 
-def direct_dct(x):
+def direct_dctii(x):
     """Direct implementation (O(n^2)) of dct II.
 
     Note
@@ -23,11 +23,11 @@ def direct_dct(x):
 
     return a.sum(axis = 1)
 
-def direct_dct2(x):
+def direct_dctii_2(x):
     """Direct implementation (O(n^2)) of dct."""
     n = x.size
 
-    a = np.cos(np.pi / n * np.linspace(0, n - 1, n)[:, None] 
+    a = np.cos(np.pi / n * np.linspace(0, n - 1, n)[:, None]
                          * np.linspace(0.5, 0.5 + n - 1, n)[None, :])
     a *= x
     a[0] *= np.sqrt(1. / n)
@@ -36,7 +36,7 @@ def direct_dct2(x):
     return a.sum(axis = 1)
 
 if __name__ == "__main__":
-    a = np.linspace(0, 10, 6)
-    print direct_dct(a)
-    a = np.linspace(0, 10, 6)
-    print direct_dct2(a)
+    a = np.linspace(0, 10, 11)
+    print direct_dctii_2(a)
+    a = np.linspace(0, 10, 11)
+    print direct_dctii_2(a)
