@@ -1,5 +1,14 @@
 """Module implementing various DCTs."""
 
+# TODO:
+# - implement with fft for a practical implementation
+# - make it work along an axis
+# - implement dct I, II, III and IV
+# - implement mdct
+# - 2d version ?
+
+# Would be nice but a lot of work
+# - C implementation
 import numpy as np
 
 # Definition of DCT in 1d (II type)
@@ -25,6 +34,8 @@ def direct_dctii(x):
 
 def direct_dctii_2(x):
     """Direct implementation (O(n^2)) of dct."""
+    # We are a bit smarter here by computing the coefficient matrix directly,
+    # but still O(N^2)
     n = x.size
 
     a = np.cos(np.pi / n * np.linspace(0, n - 1, n)[:, None]
