@@ -46,8 +46,20 @@ def direct_dctii_2(x):
 
     return a.sum(axis = 1)
 
+def dctii(x):
+    n = x.size
+    y = np.zeros(n * 4, x.dtype)
+    y[1:2*n:2] = x
+    y[2*n+1::2] = x[-1::-1]
+    y = np.real(np.fft.fft(y))[:n]
+    y[0] *= np.sqrt(.25 / n)
+    y[1:] *= np.sqrt(.5 / n)
+    return y
+
 if __name__ == "__main__":
     a = np.linspace(0, 10, 11)
     print direct_dctii_2(a)
     a = np.linspace(0, 10, 11)
     print direct_dctii_2(a)
+    b = dctii(a)
+    print b
