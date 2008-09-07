@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-# Last Change: Wed Sep 03 07:00 PM 2008 J
+# Last Change: Mon Sep 08 03:00 AM 2008 J
 
 # Copyright (C) 2008 Cournapeau David <cournape@gmail.com>
 
@@ -30,7 +30,7 @@ LONG_DESCRIPTION    = descr
 MAINTAINER          = 'David Cournapeau',
 MAINTAINER_EMAIL    = 'david@ar.media.kyoto-u.ac.jp',
 URL                 = 'http://projects.scipy.org/scipy/scikits'
-LICENSE             = 'new BSD'
+LICENSE             = 'MIT'
 DOWNLOAD_URL        = URL
 
 import setuptools
