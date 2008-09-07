@@ -1,0 +1,34 @@
+Release 0.1
+===========
+
+rank 1 version of ths following:
+        - autocorrelation
+        - levinson-durbin
+        - lpc
+        - aryule, lpc residual
+
+Spectram estimation:
+        - basic periodogram
+
+Release 0.2
+===========
+
+rank 2 version of
+        - autocorrelation, levinson-durbin, lpc
+        - aryule, lpc residual
+
+Release 0.3
+===========
+
+Implement dct II and IV from fft
+
+...
+
+Release 1.0
+===========
+
+Have major transform implemented: dct II/IV, MDCT.
+Have the whole mfcc pipeline (at least compatible with Auditory toolbox).
+Have periodogram, aryule and at least one high-resolution method for spectrum
+(MUSIC ?)
+Have good-performance LPC-analysis.
