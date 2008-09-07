@@ -32,3 +32,9 @@ Have the whole mfcc pipeline (at least compatible with Auditory toolbox).
 Have periodogram, aryule and at least one high-resolution method for spectrum
 (MUSIC ?)
 Have good-performance LPC-analysis.
+
+References
+===========
+
+[1] Marple, S.L. Digital Spectral Analysis, Englewood Cliffs, NJ,
+Prentice-Hall, 1987, pp. 373-378. (for eigen-like method)
