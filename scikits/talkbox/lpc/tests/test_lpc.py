@@ -52,6 +52,12 @@ class TestLevinson(TestCase):
     X5 = np.array([1, -1.166666666667, 0., 0., -0., -0.166666666667])
     X10 = np.array([1., -1.0909090909, 0, 0, 0, 0, 0, 0, 0, 0, -0.09090909])
 
+    Xc = np.linspace(1, 11, 11) + 1.j * np.linspace(0, 10, 11)
+    Xc1 = np.array([1, -2-1j])
+    Xc5 = np.array([1., -1.2, 0, 0, 0, -0.2000j])
+    Xc10 = np.array([1., -1.1, 0, 0, 0, 0, 0, 0, 0, 0, -0.1j])
+
+
     def test_simpl0(self):
         assert_array_almost_equal(levinson(self.X, 0)[0], self.X0)
 
@@ -61,3 +67,8 @@ class TestLevinson(TestCase):
     def test_simple2(self):
         assert_array_almost_equal(levinson(self.X, 5)[0], self.X5)
         assert_array_almost_equal(levinson(self.X, 10)[0], self.X10)
+
+    def test_complex(self):
+        assert_array_almost_equal(levinson(self.Xc, 1)[0], self.Xc1)
+        assert_array_almost_equal(levinson(self.Xc, 5)[0], self.Xc5)
+        assert_array_almost_equal(levinson(self.Xc, 10)[0], self.Xc10)

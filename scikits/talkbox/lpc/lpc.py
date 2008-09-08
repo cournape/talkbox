@@ -57,32 +57,39 @@ def levinson(r, order):
             input array to invert (since the matrix is symmetric Toeplitz, the
             corresponding pxp matrix is defined by p items only). Generally the
             autocorrelation of the signal for linear prediction coefficients
-            estimation.
+            estimation. The first item must be a non zero real.
 
     Note
     ----
     This implementation is in python, hence unsuitable for any serious
     computation. Use it as educational and reference purpose only.
 
-    Levinson is a well-known algorithm to solve the symmetric toeplitz
-    equation :
+    Levinson is a well-known algorithm to solve the Hermitian toeplitz
+    equation:
 
+                       _          _
         -R[1] = R[0]   R[1]   ... R[p-1]    a[1]
          :      :      :          :      *  :
+         :      :      :          _      *  :
         -R[p] = R[p-1] R[p-2] ... R[0]      a[p]
-
-    with respect to a. Using the special symmetry in the matrix, the inversion
-    can be done in O(p^2) instead of O(p^3).
-    
-    Hermitian (complex matrix) is not supported."""
+                       _
+    with respect to a (  is the complex conjugate). Using the special symmetry
+    in the matrix, the inversion can be done in O(p^2) instead of O(p^3).  
+    """
     r = np.atleast_1d(r)
     if r.ndim > 1:
         raise ValueError("Only rank 1 are supported for now.")
+
     n = r.size
     if order > n - 1:
         raise ValueError("Order should be <= size-1")
     elif n < 1:
         raise ValueError("Cannot operate on empty array !")
+
+    if not np.isreal(r[0]):
+        raise ValueError("First item of input must be real.")
+    elif not np.isfinite(1/r[0]):
+        raise ValueError("First item should be != 0")
 
     # Estimated coefficients
     a = np.empty(order+1, r.dtype)
@@ -105,8 +112,8 @@ def levinson(r, order):
             t[j] = a[j]
 
         for j in range(1, i):
-            a[j] += k[i-1] * t[i-j]
+            a[j] += k[i-1] * np.conj(t[i-j])
 
-        e *= 1 - k[i-1] * k[i-1]
+        e *= 1 - k[i-1] * np.conj(k[i-1])
 
     return a, e, k
