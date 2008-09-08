@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-# Last Change: Wed Sep 03 09:00 PM 2008 J
+# Last Change: Mon Sep 08 08:00 PM 2008 J
 
 import numpy as np
 import scipy as sp
@@ -42,7 +42,7 @@ def lpc_ref(signal, order):
         nx = np.min([p, signal.size])
         x = np.correlate(signal, signal, 'full')
         r[:nx] = x[signal.size-1:signal.size+order]
-        phi = np.dot(sp.linalg.inv(sp.linalg.toeplitz(r[:-1])), -r[1:]) 
-        return np.concatenate(([1.], phi)) 
+        phi = np.dot(sp.linalg.inv(sp.linalg.toeplitz(r[:-1])), -r[1:])
+        return np.concatenate(([1.], phi))
     else:
         return np.ones(1, dtype = signal.dtype)
