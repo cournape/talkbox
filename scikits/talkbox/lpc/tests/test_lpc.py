@@ -2,7 +2,7 @@ import numpy as np
 from numpy.testing import assert_array_almost_equal
 from unittest import TestCase
 
-from scikits.talkbox.spectral.lpc import lpc_ref
+from scikits.talkbox.lpc.lpc import lpc_ref
 
 class TestLPC(TestCase):
     # Values taken from matlab LPC
