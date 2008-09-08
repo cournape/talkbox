@@ -2,7 +2,7 @@ import numpy as np
 from numpy.testing import assert_array_almost_equal
 from unittest import TestCase
 
-from scikits.talkbox.lpc.lpc import lpc_ref
+from scikits.talkbox.lpc.lpc import lpc_ref, levinson
 
 class TestLPC(TestCase):
     # Values taken from matlab LPC
@@ -13,7 +13,7 @@ class TestLPC(TestCase):
     X5 = np.array([1., -0.90444817959784, 0.01158960447639, 0.01191036566532,
                    0.01244767895726, 0.04749964947373])
     X10 = np.array([1., -0.90129704880529, 0.01182431679473, 0.01215800819372,
-                    0.01271275428716, 0.01349864136763, 0.01452995829115, 
+                    0.01271275428716, 0.01349864136763, 0.01452995829115,
                     0.01582545627451, 0.01740868982649, 0.01930844501169,
                     -0.03162073915296])
     X11 = np.array([1., -0.89945522397677, 0.01069965069345, 0.01114399783175,
@@ -44,3 +44,20 @@ class TestLPC(TestCase):
     def test_order11(self):
         """Testing lpc ref order 11."""
         assert_array_almost_equal(self.X11, lpc_ref(self.X, 11))
+
+class TestLevinson(TestCase):
+    X = np.linspace(1, 11, 11)
+    X0 = np.array([1.])
+    X1 = np.array([1, -2.])
+    X5 = np.array([1, -1.166666666667, 0., 0., -0., -0.166666666667])
+    X10 = np.array([1., -1.0909090909, 0, 0, 0, 0, 0, 0, 0, 0, -0.09090909])
+
+    def test_simpl0(self):
+        assert_array_almost_equal(levinson(self.X, 0)[0], self.X0)
+
+    def test_simple1(self):
+        assert_array_almost_equal(levinson(self.X, 1)[0], self.X1)
+
+    def test_simple2(self):
+        assert_array_almost_equal(levinson(self.X, 5)[0], self.X5)
+        assert_array_almost_equal(levinson(self.X, 10)[0], self.X10)
