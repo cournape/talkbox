@@ -1,0 +1,28 @@
+.. vim:syntax=rest
+
+Installing
+==========
+
+To install talkbox, you just need:
+
+        python setup.py install
+
+If you want to install in a non-standard path:
+
+        python setup.py install --prefix=$MYPATH
+
+Suported platforms:
+-------------------
+
+tallkbox should build and run on any platform running numpy and scipy.
+
+Requirements
+------------
+
+To run correctly, talkbox requires the following softwares:
+
+        - python (> 2.4): http://www.python.org
+        - setuptools:
+          http://peak.telecommunity.com/DevCenter/setuptools#installing-setuptools
+        - numpy: http://www.scipy.org/
+        - scipy: http://www.scipy.org/
