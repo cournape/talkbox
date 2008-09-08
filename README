@@ -1,0 +1,20 @@
+talkbox is a scikit for signal/speech processing, to extend scipy capabilities
+in that domain.
+
+See INSTALL.txt for installation instruction.
+
+The goal is to provide some functionalities found in matlab signal toolbox, as
+well as other features not found in matlab for speech processing. In
+particular, we intend to implement the following:
+        - parametric and non parametric spectral estimation: ar, periodogram,
+          MUSIC, PENCIL, etc...
+        - lpc estimation
+        - Discrete Cosine Transform, Modified Discrete Cosine Transform
+        - basic speech-related features: mfcc, mel filtering, etc...
+
+One perticular feature of talkbox is that every algorithm will have a 100%
+python implementation for educational purpose; some implementations will also
+be in C, but there alway will be a python reference implementation.
+
+talkbox is licensed under a very liberal, BSD-based license, for use in both
+open-source and proprietary softwares.
