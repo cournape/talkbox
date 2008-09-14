@@ -18,7 +18,7 @@ def test_acorr_lpc():
     assert_array_equal(y[:12,:], acorr(x, axis=0, onesided=True))
     assert_array_almost_equal(y[12, 0], np.zeros((1, y.shape[1]), y.dtype))
 
-class TestLPC(TestCase):
+class _TestLPCCommon(TestCase):
     # Values taken from matlab LPC
     X = np.linspace(0, 10, 11)
     X0 = np.array([1.])
@@ -35,6 +35,10 @@ class TestLPC(TestCase):
                     0.01508497179779, 0.01670051784961, 0.01861970968050,
                     0.02087744168741, -0.05824736795705])
 
+    def setUp(self):
+        self.lpc_func = lpc_ref
+
+class TestLPCPyBackend(_TestLPCCommon):
     def setUp(self):
         self.lpc_func = lpc_ref
 
@@ -61,6 +65,35 @@ class TestLPC(TestCase):
     def test_order11(self):
         """Testing lpc ref order 11."""
         assert_array_almost_equal(self.X11, self.lpc_func(self.X, 11))
+
+class TestLPCHighBackend(_TestLPCCommon):
+    def setUp(self):
+        from scikits.talkbox.lpc.lpc import lpc
+        self.lpc = lpc
+
+    def test_order0(self):
+        """Testing actual lpc order 0."""
+        assert_array_almost_equal(self.X0, self.lpc(self.X, 0)[0])
+
+    def test_order1(self):
+        """Testing actual lpc order 1."""
+        assert_array_almost_equal(self.X1, self.lpc(self.X, 1)[0])
+
+    def test_order2(self):
+        """Testing actual lpc order 2."""
+        assert_array_almost_equal(self.X2, self.lpc(self.X, 2)[0])
+
+    def test_order5(self):
+        """Testing actual lpc order 5."""
+        assert_array_almost_equal(self.X5, self.lpc(self.X, 5)[0])
+
+    def test_order10(self):
+        """Testing actual lpc order 10."""
+        assert_array_almost_equal(self.X10, self.lpc(self.X, 10)[0])
+
+    def test_order11(self):
+        """Testing actual lpc order 11."""
+        assert_array_almost_equal(self.X11, self.lpc(self.X, 11)[0])
 
 class _LevinsonCommon(TestCase):
     X = np.linspace(1, 11, 11)
