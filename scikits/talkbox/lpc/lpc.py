@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-# Last Change: Sun Sep 14 06:00 PM 2008 J
+# Last Change: Sun Sep 14 07:00 PM 2008 J
 
 import numpy as np
 
@@ -48,10 +48,10 @@ def levinson(r, order, axis = -1):
 
     """
     if axis != -1:
-        r = np.swapaxes(r, -1)
+        r = np.swapaxes(r, axis, -1)
     a, e, k = c_levinson(r, order)
     if axis != -1:
-        a = np.swapaxes(a, -1)
-        e = np.swapaxes(e, -1)
-        k = np.swapaxes(k, -1)
+        a = np.swapaxes(a, axis, -1)
+        e = np.swapaxes(e, axis, -1)
+        k = np.swapaxes(k, axis, -1)
     return a, e, k
