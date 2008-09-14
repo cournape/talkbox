@@ -32,7 +32,7 @@ def nextpow2(n):
 
 def _acorr_last_axis(x, nfft, maxlag):
     a = np.real(ifft(np.abs(fft(x, n=nfft) ** 2)))
-    r = np.concatenate([a[..., nfft-maxlag+1:nfft], 
+    r = np.concatenate([a[..., nfft-maxlag+1:nfft],
                         a[..., :maxlag]], axis=-1)
     return r
 
