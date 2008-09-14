@@ -95,6 +95,27 @@ class TestLPCHighBackend(_TestLPCCommon):
         """Testing actual lpc order 11."""
         assert_array_almost_equal(self.X11, self.lpc(self.X, 11)[0])
 
+    def test_axisdef(self):
+        """Testing lpc of matrix, along default axis."""
+        xm = np.vstack((self.X, self.X))
+        re = {0: self.X0, 1: self.X1, 2: self.X1, 5: self.X5, 10: self.X10,
+              11: self.X11}
+        for order in [0, 1, 5, 10, 11]:
+            am = self.lpc(xm, order=order)[0]
+            for i in range(2):
+                assert_array_almost_equal(am[i], re[order])
+
+    def test_axis0(self):
+        """Testing lpc of matrix, along axis 0."""
+        xm = np.vstack((self.X, self.X)).T
+        re = {0: self.X0.T, 1: self.X1.T, 2: self.X1.T, 5: self.X5.T,
+              10: self.X10.T, 11: self.X11.T}
+
+        for order in [0, 1, 5, 10, 11]:
+            am = self.lpc(xm, order=order, axis=0)[0]
+            for i in range(2):
+                assert_array_almost_equal(am[:, i], re[order])
+
 class _LevinsonCommon(TestCase):
     X = np.linspace(1, 11, 11)
     X0 = np.array([1.])
