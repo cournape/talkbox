@@ -3,10 +3,36 @@
 # Last Change: Sun Sep 14 10:00 PM 2008 J
 
 import numpy as np
+from scipy.fftpack import fft, ifft
+
+from scikits.talkbox.tools import nextpow2
 
 from _lpc import levinson as c_levinson
 
 __all__ = ['levinson']
+
+def _acorr_last_axis(x, nfft, maxlag):
+    a = np.real(ifft(np.abs(fft(x, n=nfft) ** 2)))
+    return a[..., :maxlag+1]
+
+def acorr_lpc(x, axis=-1):
+    """Compute autocorrelation of x along the given axis.
+
+    Notes
+    -----
+        The reason why we do not use acorr directly is for speed issue."""
+    if not np.isrealobj(x):
+        raise ValueError("Complex input not supported yet")
+
+    maxlag = x.shape[axis]
+    nfft = 2 ** nextpow2(2 * maxlag - 1)
+
+    if axis != -1:
+        x = np.swapaxes(x, -1, axis)
+    a = _acorr_last_axis(x, nfft, maxlag)
+    if axis != -1:
+        a = np.swapaxes(a, -1, axis)
+    return a
 
 def levinson(r, order, axis = -1):
     """Levinson-Durbin recursion, to efficiently solve symmetric linear systems

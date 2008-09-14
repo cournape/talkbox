@@ -1,10 +1,22 @@
 import numpy as np
-from numpy.testing import assert_array_almost_equal, run_module_suite
+from numpy.testing import *
 from unittest import TestCase
+
+from scikits.talkbox.tools import acorr
 
 from scikits.talkbox.lpc.py_lpc import lpc_ref, levinson_1d as py_levinson
 from scikits.talkbox.lpc._lpc import levinson as c_levinson
-from scikits.talkbox.lpc import levinson
+from scikits.talkbox.lpc.lpc import levinson, acorr_lpc
+
+def test_acorr_lpc():
+    x = np.random.randn(12, 5)
+    y = acorr_lpc(x)
+    assert_array_equal(y[:, :5], acorr(x, onesided=True))
+    assert_array_almost_equal(y[:, 5], np.zeros(y.shape[0], y.dtype))
+
+    y = acorr_lpc(x, axis=0)
+    assert_array_equal(y[:12,:], acorr(x, axis=0, onesided=True))
+    assert_array_almost_equal(y[12, 0], np.zeros((1, y.shape[1]), y.dtype))
 
 class TestLPC(TestCase):
     # Values taken from matlab LPC
