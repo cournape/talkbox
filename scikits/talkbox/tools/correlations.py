@@ -1,6 +1,8 @@
 import numpy as np
 from scipy.fftpack import fft, ifft
 
+__all__ = ['nextpow2', 'acorr']
+
 def nextpow2(n):
     """Return the next power of 2 such as 2^p >= n.
 

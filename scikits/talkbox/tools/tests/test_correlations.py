@@ -1,7 +1,7 @@
 import numpy as np
 from numpy.testing import TestCase, assert_array_equal, assert_array_almost_equal
 
-from scikits.talkbox.tools.acorr import nextpow2, acorr
+from scikits.talkbox.tools.correlations import nextpow2, acorr
 
 class TestNextpow2(TestCase):
     X = np.array([0, 1, 2, 3, 4, 6, 8, 15, 16, 17, 32, np.nan, np.infty])
