@@ -7,15 +7,15 @@ rank 1 version of ths following:
         - lpc
         - aryule, lpc residual
 
-Spectrogram estimation:
-        - basic periodogram
-
 Release 0.2
 ===========
 
-rank 2 version of
+arbitrary rank version of
         - autocorrelation, levinson-durbin, lpc
         - aryule, lpc residual
+
+Spectrogram estimation:
+        - basic periodogram
 
 Release 0.3
 ===========
