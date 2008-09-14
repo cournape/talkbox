@@ -4,9 +4,9 @@ from unittest import TestCase
 
 from scikits.talkbox.tools import acorr
 
-from scikits.talkbox.lpc.py_lpc import lpc_ref, levinson_1d as py_levinson
-from scikits.talkbox.lpc._lpc import levinson as c_levinson
-from scikits.talkbox.lpc.levinson_lpc import levinson, acorr_lpc
+from scikits.talkbox.linpred.py_lpc import lpc_ref, levinson_1d as py_levinson
+from scikits.talkbox.linpred._lpc import levinson as c_levinson
+from scikits.talkbox.linpred.levinson_lpc import levinson, acorr_lpc
 
 def test_acorr_lpc():
     x = np.random.randn(12, 5)
@@ -68,7 +68,7 @@ class TestLPCPyBackend(_TestLPCCommon):
 
 class TestLPCHighBackend(_TestLPCCommon):
     def setUp(self):
-        from scikits.talkbox.lpc.levinson_lpc import lpc
+        from scikits.talkbox.linpred.levinson_lpc import lpc
         self.lpc = lpc
 
     def test_order0(self):

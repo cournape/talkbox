@@ -3,7 +3,7 @@ import numpy as np
 
 def configuration(parent_package='', top_path=None):
     from numpy.distutils.misc_util import Configuration
-    config = Configuration('lpc', parent_package, top_path)
+    config = Configuration('linpred', parent_package, top_path)
 
     config.add_library('clpc', sources=['src/levinson.c'])
 
