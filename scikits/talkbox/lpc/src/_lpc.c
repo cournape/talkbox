@@ -1,3 +1,7 @@
+/*
+ * A set of python wrappers around C levinson, etc...
+ */
+
 #include <Python.h>
 #include <numpy/arrayobject.h>
 
@@ -9,7 +13,7 @@ static PyObject *LpcError;
  * Malloc are not checked !
  */
 PyObject* array_levinson_1d(PyArrayObject *arr, long order,
-			    PyArrayObject** alpccoeff, 
+			    PyArrayObject** alpccoeff,
 			    PyArrayObject **klpccoeff, PyArrayObject **elpc)
 {
 	PyArray_Descr *dtype;
@@ -46,8 +50,8 @@ PyObject* array_levinson_1d(PyArrayObject *arr, long order,
 }
 
 int array_levinson_nd(PyArrayObject *arr, long order,
-			    PyArrayObject** alpccoeff, 
-			    PyArrayObject **klpccoeff, PyArrayObject **elpc)
+                      PyArrayObject** alpccoeff,
+                      PyArrayObject **klpccoeff, PyArrayObject **elpc)
 {
 	double *acoeff, *kcoeff, *tmp;
 	double *err;
@@ -137,12 +141,12 @@ PyObject* array_levinson(PyObject* in, long order)
 	if (arr == NULL) {
 		return NULL;
 	}
-	
+
 	size = PyArray_SIZE(arr);
 	if  (size < 1) {
 		return NULL;
 	}
-	
+
 	rank = PyArray_NDIM(arr);
 	n = PyArray_DIM(arr, rank-1);
 	if (n <= order) {
@@ -188,7 +192,7 @@ PyObject* PyArray_Levinson(PyObject* self, PyObject* args)
 	}
 
 	out = array_levinson(in, order);
-	
+
 	return out;
 }
 
@@ -197,7 +201,7 @@ static PyMethodDef lpcmethods[] = {
 };
 
 PyMODINIT_FUNC init_lpc(void)
-{ 
+{
 	Py_InitModule("_lpc", lpcmethods);
 	import_array();
 }
