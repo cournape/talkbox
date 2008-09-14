@@ -21,29 +21,32 @@ class TestLPC(TestCase):
                     0.01508497179779, 0.01670051784961, 0.01861970968050,
                     0.02087744168741, -0.05824736795705])
 
+    def setUp(self):
+        self.lpc_func = lpc_ref
+
     def test_order0(self):
         """Testing lpc ref order 0."""
-        assert_array_almost_equal(self.X0, lpc_ref(self.X, 0))
+        assert_array_almost_equal(self.X0, self.lpc_func(self.X, 0))
 
     def test_order1(self):
         """Testing lpc ref order 1."""
-        assert_array_almost_equal(self.X1, lpc_ref(self.X, 1))
+        assert_array_almost_equal(self.X1, self.lpc_func(self.X, 1))
 
     def test_order2(self):
         """Testing lpc ref order 2."""
-        assert_array_almost_equal(self.X2, lpc_ref(self.X, 2))
+        assert_array_almost_equal(self.X2, self.lpc_func(self.X, 2))
 
     def test_order5(self):
         """Testing lpc ref order 5."""
-        assert_array_almost_equal(self.X5, lpc_ref(self.X, 5))
+        assert_array_almost_equal(self.X5, self.lpc_func(self.X, 5))
 
     def test_order10(self):
         """Testing lpc ref order 10."""
-        assert_array_almost_equal(self.X10, lpc_ref(self.X, 10))
+        assert_array_almost_equal(self.X10, self.lpc_func(self.X, 10))
 
     def test_order11(self):
         """Testing lpc ref order 11."""
-        assert_array_almost_equal(self.X11, lpc_ref(self.X, 11))
+        assert_array_almost_equal(self.X11, self.lpc_func(self.X, 11))
 
 class TestLevinson(TestCase):
     X = np.linspace(1, 11, 11)
