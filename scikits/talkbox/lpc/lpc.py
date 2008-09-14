@@ -1,10 +1,12 @@
 #! /usr/bin/env python
 
-# Last Change: Sun Sep 14 08:00 PM 2008 J
+# Last Change: Sun Sep 14 10:00 PM 2008 J
 
 import numpy as np
 
 from _lpc import levinson as c_levinson
+
+__all__ = ['levinson']
 
 def levinson(r, order, axis = -1):
     """Levinson-Durbin recursion, to efficiently solve symmetric linear systems
