@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-# Last Change: Sun Sep 14 07:00 PM 2008 J
+# Last Change: Sun Sep 14 08:00 PM 2008 J
 
 import numpy as np
 
@@ -46,6 +46,8 @@ def levinson(r, order, axis = -1):
     with respect to a (  is the complex conjugate). Using the special symmetry
     in the matrix, the inversion can be done in O(p^2) instead of O(p^3).
 
+    Only double argument are supported: float and long double are internally
+    converted to double, and complex input are not supported at all.
     """
     if axis != -1:
         r = np.swapaxes(r, axis, -1)
