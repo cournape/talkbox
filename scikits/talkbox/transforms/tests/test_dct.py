@@ -1,7 +1,7 @@
 import numpy as np
 from numpy.testing import TestCase, assert_array_almost_equal
 
-from scikits.talkbox.transform.dct import direct_dctii, direct_dctii_2, dctii
+from scikits.talkbox.transforms.dct import direct_dctii, direct_dctii_2, dctii
 
 class TestDCTTypeII(TestCase):
     Y0 = np.array([16.58312395177700, -10.41945851392763, 0.,
