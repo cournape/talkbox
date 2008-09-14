@@ -5,7 +5,7 @@ def configuration(parent_package='', top_path=None):
     from numpy.distutils.misc_util import Configuration, get_numpy_include_dirs
     config = Configuration('talkbox', parent_package, top_path)
     config.add_subpackage('lpc')
-    config.add_subpackage('transform')
+    config.add_subpackage('transforms')
     config.add_subpackage('tools')
     return config
 
