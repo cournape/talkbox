@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-# Last Change: Sun Sep 14 04:00 PM 2008 J
+# Last Change: Sun Sep 14 05:00 PM 2008 J
 
 # Copyright (C) 2008 Cournapeau David <cournape@gmail.com>
 
@@ -36,11 +36,11 @@ DOWNLOAD_URL        = URL
 import setuptools
 from numpy.distutils.core import setup
 
-def configuration(parent_package='',top_path=None, package_name=DISTNAME):
+def configuration(parent_package='', top_path=None):
     if os.path.exists('MANIFEST'): os.remove('MANIFEST')
 
     from numpy.distutils.misc_util import Configuration
-    config = Configuration(package_name,parent_package,top_path,
+    config = Configuration(None, parent_package, top_path,
         maintainer  = MAINTAINER,
         maintainer_email = MAINTAINER_EMAIL,
         description = DESCRIPTION,
@@ -49,24 +49,25 @@ def configuration(parent_package='',top_path=None, package_name=DISTNAME):
         download_url = DOWNLOAD_URL,
         long_description = LONG_DESCRIPTION)
 
-    config.set_options(
-                ignore_setup_xxx_py=True,
-                assume_default_configuration=True,
-                delegate_options_to_subpackages=True,
-                quiet=True,
-    )
+    #config.set_options(
+    #            ignore_setup_xxx_py=True,
+    #            assume_default_configuration=True,
+    #            delegate_options_to_subpackages=True,
+    #            quiet=True,
+    #)
 
-    config.add_subpackage('scikits/talkbox')
+    config.add_subpackage('scikits')
+    config.add_subpackage(DISTNAME)
+    #config.add_data_files('scikits/__init__.py')
 
     return config
 
 if __name__ == "__main__":
-    setup(
+    setup(configuration = configuration,
+        name = DISTNAME,
         install_requires = 'numpy',
         namespace_packages = ['scikits'],
         packages = setuptools.find_packages(),
-        configuration = configuration,
-        name = DISTNAME,
         version = '0.0.1',
         include_package_data = True,
         #test_suite="tester", # for python setup.py test
