@@ -2,7 +2,7 @@ import numpy as np
 from numpy.testing import assert_array_almost_equal
 from unittest import TestCase
 
-from scikits.talkbox.lpc.lpc import lpc_ref, levinson
+from scikits.talkbox.lpc.py_lpc import lpc_ref, levinson_1d as py_levinson
 
 class TestLPC(TestCase):
     # Values taken from matlab LPC
@@ -59,16 +59,16 @@ class TestLevinson(TestCase):
 
 
     def test_simpl0(self):
-        assert_array_almost_equal(levinson(self.X, 0)[0], self.X0)
+        assert_array_almost_equal(py_levinson(self.X, 0)[0], self.X0)
 
     def test_simple1(self):
-        assert_array_almost_equal(levinson(self.X, 1)[0], self.X1)
+        assert_array_almost_equal(py_levinson(self.X, 1)[0], self.X1)
 
     def test_simple2(self):
-        assert_array_almost_equal(levinson(self.X, 5)[0], self.X5)
-        assert_array_almost_equal(levinson(self.X, 10)[0], self.X10)
+        assert_array_almost_equal(py_levinson(self.X, 5)[0], self.X5)
+        assert_array_almost_equal(py_levinson(self.X, 10)[0], self.X10)
 
     def test_complex(self):
-        assert_array_almost_equal(levinson(self.Xc, 1)[0], self.Xc1)
-        assert_array_almost_equal(levinson(self.Xc, 5)[0], self.Xc5)
-        assert_array_almost_equal(levinson(self.Xc, 10)[0], self.Xc10)
+        assert_array_almost_equal(py_levinson(self.Xc, 1)[0], self.Xc1)
+        assert_array_almost_equal(py_levinson(self.Xc, 5)[0], self.Xc5)
+        assert_array_almost_equal(py_levinson(self.Xc, 10)[0], self.Xc10)
