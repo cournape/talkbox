@@ -16,7 +16,7 @@ class TestNextpow2(TestCase):
     def test_vector(self):
         assert_array_equal(nextpow2(self.X), self.Y)
 
-class TestAcorr(TestCase):
+class _TestCorrCommon(TestCase):
     X = np.linspace(1, 11, 11)
     Y = np.array([11.0000, 32.0000, 62.0000, 100.0000, 145.0000, 196.0000,
                   252.0000, 312.0000, 375.0000, 440.0000, 506.0000, 440.0000,
@@ -31,6 +31,7 @@ class TestAcorr(TestCase):
                     2652.,  2970.,  3289.,  2970.,  2652.,  2336.,  2023.,  1714.,
                     1410.,  1112.,   821.,   538.,   264.]])
 
+class TestAcorr(_TestCorrCommon):
     def test_simple(self):
         """Test autocorrelation for a rank 1 array."""
         a = acorr(self.X)
