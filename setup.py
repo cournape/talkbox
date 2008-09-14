@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-# Last Change: Mon Sep 08 03:00 AM 2008 J
+# Last Change: Sun Sep 14 04:00 PM 2008 J
 
 # Copyright (C) 2008 Cournapeau David <cournape@gmail.com>
 
@@ -56,8 +56,7 @@ def configuration(parent_package='',top_path=None, package_name=DISTNAME):
                 quiet=True,
     )
 
-    config.add_subpackage('scikits')
-    config.add_subpackage(DISTNAME)
+    config.add_subpackage('scikits/talkbox')
 
     return config
 
