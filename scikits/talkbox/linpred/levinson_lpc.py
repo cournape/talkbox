@@ -9,7 +9,7 @@ from scikits.talkbox.tools import nextpow2
 
 from _lpc import levinson as c_levinson
 
-__all__ = ['levinson']
+__all__ = ['levinson', 'lpc']
 
 def lpc(signal, order, axis=-1):
     """Compute the Linear Prediction Coefficients.
@@ -33,8 +33,8 @@ def lpc(signal, order, axis=-1):
     ----
 
     This uses Levinson-Durbin recursion for the autocorrelation matrix
-    inversion, and fft for the autocorrelation computation. 
-    
+    inversion, and fft for the autocorrelation computation.
+
     For small order, particularly if order << signal size, direct computation
     of the autocorrelation is faster: use levinson and correlate in this case."""
     n = signal.shape[axis]
