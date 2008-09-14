@@ -10,13 +10,12 @@
 static PyObject *LpcError;
 
 /*
- * Malloc are not checked !
+ * Levinson-Durbin recursion on one array. Output arrays are put into
+ * alpccoeff, klpccoeff and elpc.
  */
-PyObject* array_levinson_1d(PyArrayObject *arr, long order,
-			    PyArrayObject** alpccoeff,
-			    PyArrayObject **klpccoeff, PyArrayObject **elpc)
+int array_levinson_1d(PyArrayObject *arr, long order, PyArrayObject** alpccoeff,
+	              PyArrayObject **klpccoeff, PyArrayObject **elpc)
 {
-	PyArray_Descr *dtype;
 	double *acoeff, *kcoeff, *tmp;
 	double err;
 	npy_int alpc_size = (order + 1);
@@ -26,27 +25,50 @@ PyObject* array_levinson_1d(PyArrayObject *arr, long order,
 	/* XXX: use data malloc from numpy */
 	acoeff = malloc(sizeof(*acoeff) * (order + 1));
 	if (acoeff == NULL) {
-		return NULL;
+		return -1;
 	}
 	kcoeff = malloc(sizeof(*kcoeff) * order);
 	if (kcoeff == NULL) {
-		return NULL;
+                goto clean_acoeff;
 	}
 	tmp = malloc(sizeof(*tmp) * order);
 	if (tmp == NULL) {
-		return NULL;
+                goto clean_kcoeff;
 	}
 
 	levinson((double*)(arr->data), order, acoeff, &err, kcoeff, tmp);
 
 	*alpccoeff = (PyArrayObject*)PyArray_SimpleNewFromData(1, &alpc_size,
 						      PyArray_DOUBLE, acoeff);
+        if(*alpccoeff == NULL) {
+                goto clean_tmp;
+        }
+
 	*klpccoeff = (PyArrayObject*)PyArray_SimpleNewFromData(1, &klpc_size,
 						      NPY_DOUBLE, kcoeff);
+        if(*klpccoeff == NULL) {
+                goto clean_alpccoeff;
+        }
+
 	*elpc = (PyArrayObject*)PyArray_SimpleNewFromData(1, &elpc_size, NPY_DOUBLE,
 						 &err);
+        if(*elpc == NULL) {
+                goto clean_klpccoeff;
+        }
 
 	return 0;
+
+clean_klpccoeff:
+        Py_DECREF(*klpccoeff);
+clean_alpccoeff:
+        Py_DECREF(*alpccoeff);
+clean_tmp:
+        free(tmp);
+clean_kcoeff:
+        free(kcoeff);
+clean_acoeff:
+        free(acoeff);
+        return -1;
 }
 
 int array_levinson_nd(PyArrayObject *arr, long order,
