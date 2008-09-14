@@ -27,3 +27,33 @@ def nextpow2(n):
         res[bet] = p[bet]
         res[exa] = p[exa] - 1
         return res
+
+def acorr(x, axis=-1):
+    """Compute autocorrelation of x along given axis.
+
+    Arguments
+    ---------
+        x : array-like
+            signal to correlate.
+        axis : int
+            axis along which autocorrelation is computed.
+
+    Notes
+    -----
+        No scaling is done (yet).
+
+        Use fft for computation: is more efficient than direct computation for
+        relatively large n.
+    """
+    maxlag = x.shape[axis]
+    nfft = 2 ** nextpow2(2 * maxlag - 1)
+    def _acorr_last_axis(x):
+        return np.real(ifft(np.abs(fft(x, n=nfft) ** 2)))
+
+    if axis != -1:
+        x = np.swapaxes(x, -1, axis)
+    a = _acorr_last_axis(x)
+    r = np.concatenate([a[..., nfft-maxlag+1:nfft], a[..., :maxlag]], axis=-1)
+    if axis != -1:
+        r = np.swapaxes(r, -1, axis)
+    return r
