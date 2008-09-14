@@ -30,13 +30,15 @@ def nextpow2(n):
         res[exa] = p[exa] - 1
         return res
 
-def _acorr_last_axis(x, nfft, maxlag):
+def _acorr_last_axis(x, nfft, maxlag, onesided=False):
     a = np.real(ifft(np.abs(fft(x, n=nfft) ** 2)))
-    r = np.concatenate([a[..., nfft-maxlag+1:nfft],
-                        a[..., :maxlag]], axis=-1)
-    return r
+    if onesided:
+        return a[..., :maxlag]
+    else:
+        return np.concatenate([a[..., nfft-maxlag+1:nfft],
+                               a[..., :maxlag]], axis=-1)
 
-def acorr(x, axis=-1):
+def acorr(x, axis=-1, onesided=False):
     """Compute autocorrelation of x along given axis.
 
     Arguments
@@ -45,6 +47,8 @@ def acorr(x, axis=-1):
             signal to correlate.
         axis : int
             axis along which autocorrelation is computed.
+        onesided: bool, optional
+            if True, only returns the right side of the autocorrelation.
 
     Notes
     -----
@@ -58,7 +62,7 @@ def acorr(x, axis=-1):
 
     if axis != -1:
         x = np.swapaxes(x, -1, axis)
-    a = _acorr_last_axis(x, nfft, maxlag)
+    a = _acorr_last_axis(x, nfft, maxlag, onesided)
     if axis != -1:
         a = np.swapaxes(a, -1, axis)
     return a
