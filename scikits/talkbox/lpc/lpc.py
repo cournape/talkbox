@@ -47,7 +47,7 @@ def lpc_ref(signal, order):
     else:
         return np.ones(1, dtype = signal.dtype)
 
-def levinson(r, order):
+def levinson_1d(r, order):
     """Levinson-Durbin recursion, to efficiently solve symmetric linear systems
     with toeplitz structure.
 
