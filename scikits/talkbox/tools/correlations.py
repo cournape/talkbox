@@ -57,6 +57,9 @@ def acorr(x, axis=-1, onesided=False):
         Use fft for computation: is more efficient than direct computation for
         relatively large n.
     """
+    if not np.isrealobj(x):
+        raise ValueError("Complex input not supported yet")
+
     maxlag = x.shape[axis]
     nfft = 2 ** nextpow2(2 * maxlag - 1)
 
