@@ -123,7 +123,7 @@ int array_levinson_nd(PyArrayObject *arr, long order,
 	if (kcoeff == NULL) {
 		return -1;
 	}
-	err = malloc(sizeof(*err) * nrepeat * order);
+	err = malloc(sizeof(*err) * nrepeat);
 	if (err == NULL) {
 		return -1;
 	}
