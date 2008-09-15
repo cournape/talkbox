@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-# Last Change: Mon Sep 15 02:00 PM 2008 J
+# Last Change: Mon Sep 15 03:00 PM 2008 J
 
 import numpy as np
 from scipy.fftpack import fft, ifft
@@ -73,39 +73,39 @@ def levinson(r, order, axis = -1):
 
     Parameters
     ----------
-        r : array-like
-            input array to invert (since the matrix is symmetric Toeplitz, the
-            corresponding pxp matrix is defined by p items only). Generally the
-            autocorrelation of the signal for linear prediction coefficients
-            estimation. The first item must be a non zero real, and corresponds
-            to the autocorelation at lag 0 for linear prediction.
-        order : int
-            order of the recursion. For order p, you will get p+1 coefficients.
-        axis : int, optional
-            axis over which the algorithm is applied. -1 by default.
+    r : array-like
+        input array to invert (since the matrix is symmetric Toeplitz, the
+        corresponding pxp matrix is defined by p items only). Generally the
+        autocorrelation of the signal for linear prediction coefficients
+        estimation. The first item must be a non zero real, and corresponds
+        to the autocorelation at lag 0 for linear prediction.
+    order : int
+        order of the recursion. For order p, you will get p+1 coefficients.
+    axis : int, optional
+        axis over which the algorithm is applied. -1 by default.
 
     Returns
-    --------
-        a : array-like
-            the solution of the inversion (see notes).
-        e : array-like
-            the prediction error.
-        k : array-like
-            reflection coefficients.
+    -------
+    a : array-like
+        the solution of the inversion (see notes).
+    e : array-like
+        the prediction error.
+    k : array-like
+        reflection coefficients.
 
     Notes
     -----
     Levinson is a well-known algorithm to solve the Hermitian toeplitz
-    equation:
+    equation: ::
 
                        _          _
         -R[1] = R[0]   R[1]   ... R[p-1]    a[1]
-         :      :      :          :      *  :
+         :      :      :          :         :
          :      :      :          _      *  :
         -R[p] = R[p-1] R[p-2] ... R[0]      a[p]
-                       _
-    with respect to a (  is the complex conjugate). Using the special symmetry
-    in the matrix, the inversion can be done in O(p^2) instead of O(p^3).
+
+    with respect to a. Using the special symmetry in the matrix, the inversion
+    can be done in O(p^2) instead of O(p^3).
 
     Only double argument are supported: float and long double are internally
     converted to double, and complex input are not supported at all.
