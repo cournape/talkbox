@@ -27,5 +27,7 @@ TODO: blob on ESD vs PSD.
 Non-parametric
 --------------
 
+.. autofunction:: scikits.talkbox.spectral.basic.periodogram
+
 Parametric
 ----------
