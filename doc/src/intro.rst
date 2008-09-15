@@ -18,9 +18,28 @@ and higher) should do.
 .. _Scipy: http://www.scipy.org
 
 Starting with talkbox
----------------------
+=====================
 
-The main functions are available through the scikits.talkbox namespace:
+main namespace
+--------------
+
+The main functions are available through the main scikits.talkbox namespace:
+
+.. code-block:: python
+   :linenos:
 
     import scikits.talkbox as talk
-    help talk
+
+Getting help
+------------
+
+All high level functions are duely documented, and are available through the
+usual python facilities:
+
+.. code-block:: python
+   :linenos:
+
+    import scikits.talkbox as talk
+    help(talk)
+
+Will give you online-help for the main talkbox functions.
