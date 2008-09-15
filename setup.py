@@ -5,21 +5,23 @@
 
 descr   = """Talkbox, to make your numpy environment speech aware !
 
-This is set of python modules for speech/signal processing. The goal of this
+Talkbox is set of python modules for speech/signal processing. The goal of this
 toolbox is to be a sandbox for features which may end up in scipy at some
-point. I want to implement the following features:
+point. The following features are planned before a 1.0 release:
 
     * Spectrum estimation related functions: both parametic (lpc, high
     resolution methods like music and co), and non-parametric (Welch,
-    periodogram) will be implemented
+    periodogram)
+    * Fourier-like transforms (DCT, DST, MDCT, etc...)
     * Basic signal processing tasks such as resampling
     * Speech related functionalities: mfcc, mel spectrum, etc..
     * More as it comes
 
-The 'vision' is to have a pure python implementation for everything, with
-optional C/C++/Lisp for speed, because I want this to be educational and
-useful: reading signal processing in C is no fun, and neither is waiting for
-your mfcc computation one hour before ICASSP submission deadline :)."""
+I want talkbox to be useful for both research and educational purpose. As such,
+a requirement is to have a pure python implementation for everything - for
+educational purpose and reproducibility - and optional C/C++/Lisp for speed -
+because waiting for your mfcc computation one hour before ICASSP submission
+deadline :)."""
 
 import os
 import sys
