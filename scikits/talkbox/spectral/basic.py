@@ -5,14 +5,14 @@ def periodogram(x, nfft=256):
     """Compute the periodogram of the given signal, with the given fft size.
 
     Parameters
-    ---------
+    ----------
     x: array-like
         input signal
     nfft: int
         size of the fft to compute the periodogram
 
     Notes
-    ----
+    -----
     Only real signals supported for now.
 
     Returns the one-sided version of the periodogram.
