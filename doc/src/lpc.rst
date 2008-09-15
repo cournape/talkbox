@@ -23,10 +23,29 @@ x is minimal for p the orthogonal project of x on the vector space V spanned by
 the x^-1, ..., x^-k. In particular, the error e is then orthogonal to any
 vector in V:
 
-.. latex::
-    <x - p(x), x^-1> = 0
-    <x - p(x), x^-k> = 0
+.. .. latex::
+..     <x - p(x), x^-1> = 0
+..     <x - p(x), x^-k> = 0
+..
+.. And:
+..
+..     <x - p(x), x> = <x, x>>
 
-And:
+TODO: decent blob for above
 
-    <x - p(x), x> = <x, x>>
+Levinson-Durbin recursion
+-------------------------
+
+Levinson-Durbin recursion is a recursive algorithm to solve the Yule-Walker
+equations in O(p^2) instead of O(p^3) usually necessary to inverse a matrix. It
+uses the Hermitian-Toeplitz structure of the correlation matrix.
+
+.. autofunction:: scikits.talkbox.levinson
+
+Linear prediction coding
+------------------------
+
+Solve the Yule-Walker equation for a signal x, using the autocorelation method
+and Levinson-Durbin for the Yule-Walker inversion.
+
+.. autofunction:: scikits.talkbox.lpc

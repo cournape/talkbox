@@ -24,7 +24,8 @@ sys.path.append(pjoin(pdirname(__file__), os.pardir, 'ext'))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'only_directives', 'numpydoc']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'only_directives',
+              'numpydoc', 'mathml']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['.templates']
@@ -171,7 +172,9 @@ latex_documents = [
 #latex_use_parts = False
 
 # Additional stuff for the LaTeX preamble.
-#latex_preamble = ''
+latex_preamble = r'''
+\usepackage{amsmath,amssymb}
+'''
 
 # Documents to append as an appendix to all manuals.
 #latex_appendices = []
