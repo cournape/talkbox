@@ -24,7 +24,7 @@ def lpc_ref(signal, order):
     order : int
         LPC order (the output will have order + 1 items)
 
-    Note
+    Notes
     ----
 
     This is just for reference, as it is using the direct inversion of the
@@ -51,7 +51,7 @@ def levinson_1d(r, order):
     """Levinson-Durbin recursion, to efficiently solve symmetric linear systems
     with toeplitz structure.
 
-    Arguments
+    Parameters
     ---------
         r : array-like
             input array to invert (since the matrix is symmetric Toeplitz, the
@@ -59,7 +59,7 @@ def levinson_1d(r, order):
             autocorrelation of the signal for linear prediction coefficients
             estimation. The first item must be a non zero real.
 
-    Note
+    Notes
     ----
     This implementation is in python, hence unsuitable for any serious
     computation. Use it as educational and reference purpose only.

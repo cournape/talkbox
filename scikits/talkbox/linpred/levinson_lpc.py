@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-# Last Change: Sun Sep 14 11:00 PM 2008 J
+# Last Change: Mon Sep 15 02:00 PM 2008 J
 
 import numpy as np
 from scipy.fftpack import fft, ifft
@@ -29,8 +29,8 @@ def lpc(signal, order, axis=-1):
     order : int
         LPC order (the output will have order + 1 items)
 
-    Note
-    ----
+    Notes
+    -----
 
     This uses Levinson-Durbin recursion for the autocorrelation matrix
     inversion, and fft for the autocorrelation computation.
@@ -71,8 +71,8 @@ def levinson(r, order, axis = -1):
     """Levinson-Durbin recursion, to efficiently solve symmetric linear systems
     with toeplitz structure.
 
-    Arguments
-    ---------
+    Parameters
+    ----------
         r : array-like
             input array to invert (since the matrix is symmetric Toeplitz, the
             corresponding pxp matrix is defined by p items only). Generally the

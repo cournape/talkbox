@@ -4,14 +4,14 @@ from scipy.fftpack import fft, ifft
 def periodogram(x, nfft=256):
     """Compute the periodogram of the given signal, with the given fft size.
 
-    Arguments
+    Parameters
     ---------
     x: array-like
         input signal
     nfft: int
         size of the fft to compute the periodogram
 
-    Note
+    Notes
     ----
     Only real signals supported for now.
 

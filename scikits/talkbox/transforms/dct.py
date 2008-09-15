@@ -17,8 +17,8 @@ import numpy as np
 def direct_dctii(x):
     """Direct implementation (O(n^2)) of dct II.
 
-    Note
-    ----
+    Notes
+    -----
 
     Use it as a reference only, it is not suitable for any real computation."""
     n = x.size

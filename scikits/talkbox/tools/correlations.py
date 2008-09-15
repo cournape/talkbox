@@ -6,8 +6,8 @@ __all__ = ['nextpow2', 'acorr']
 def nextpow2(n):
     """Return the next power of 2 such as 2^p >= n.
 
-    Note
-    ----
+    Notes
+    -----
 
     Infinite and nan are left untouched, negative values are not allowed."""
     if np.any(n < 0):
@@ -41,8 +41,8 @@ def _acorr_last_axis(x, nfft, maxlag, onesided=False):
 def acorr(x, axis=-1, onesided=False):
     """Compute autocorrelation of x along given axis.
 
-    Arguments
-    ---------
+    Parameters
+    ----------
         x : array-like
             signal to correlate.
         axis : int
