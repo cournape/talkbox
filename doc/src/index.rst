@@ -10,9 +10,11 @@
 Welcome to talkbox documentation
 --------------------------------
 
-Talkbox is set of python modules for speech/signal processing. The goal of this
-toolbox is to be a sandbox for features which may end up in scipy at some
-point. The following features are planned before a 1.0 release:
+The following document describes how to use the talkbox scikits for signal
+processing. The document assumes basic knowledge of signal processing (Fourier
+Transform, Linear Time Invariant systems).
+
+Talkbox is set of python modules for speech/signal processing. The following features are planned before a 1.0 release:
 
     * Spectrum estimation related functions: both parametic (lpc, high
       resolution methods like music and co), and non-parametric (Welch,
@@ -22,11 +24,12 @@ point. The following features are planned before a 1.0 release:
     * Speech related functionalities: mfcc, mel spectrum, etc..
     * More as it comes
 
-I want talkbox to be useful for both research and educational purpose. As such,
-a requirement is to have a pure python implementation for everything, with
-optional C/C++/Lisp for speed: reading signal processing in C is no fun, and
-neither is waiting for your mfcc computation one hour before ICASSP submission
-deadline :).
+The goal of this toolbox is to be a sandbox for features which may end up in
+scipy at some point. I also want talkbox to be useful for both research and
+educational purpose. As such, a requirement is to have a pure python
+implementation for everything, with optional C/C++/Lisp for speed: reading
+signal processing in C is no fun, and neither is waiting for your mfcc
+computation one hour before ICASSP submission deadline :).
 
 .. toctree::
    :maxdepth: 2
