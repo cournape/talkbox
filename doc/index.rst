@@ -1,9 +1,14 @@
-.. talkbox documentation master file, created by sphinx-quickstart on Mon Sep 15 02:01:40 2008.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+###################
+ scikits.talkbox
+###################
 
-Welcome to talkbox's documentation!
-===================================
+.. htmlonly::
+
+    :Release: |version|
+    :Date: |today|
+
+Welcome to talkbox documentation
+--------------------------------
 
 Talkbox is set of python modules for speech/signal processing. The goal of this
 toolbox is to be a sandbox for features which may end up in scipy at some
@@ -19,23 +24,19 @@ point. The following features are planned before a 1.0 release:
 
 I want talkbox to be useful for both research and educational purpose. As such,
 a requirement is to have a pure python implementation for everything, with
-optional C/C++/Lisp for speed, because I want this to be educational and
-useful: reading signal processing in C is no fun, and neither is waiting for
-your mfcc computation one hour before ICASSP submission deadline :).
-
-Contents:
+optional C/C++/Lisp for speed: reading signal processing in C is no fun, and
+neither is waiting for your mfcc computation one hour before ICASSP submission
+deadline :).
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
    intro
    spectral
    lpc
 
-Indices and tables
-==================
+.. htmlonly::
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+  * :ref:`genindex`
+  * :ref:`modindex`
+  * :ref:`search`
