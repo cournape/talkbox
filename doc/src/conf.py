@@ -24,8 +24,8 @@ sys.path.append(pjoin(pdirname(__file__), os.pardir, 'ext'))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'only_directives',
-              'numpydoc']
+extensions = ['sphinx.ext.doctest', 'only_directives',
+              'numpydoc', 'sphinx.ext.pngmath']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['.templates']
@@ -181,3 +181,6 @@ latex_preamble = r'''
 
 # If false, no module index is generated.
 #latex_use_modindex = True
+
+# png math
+#pngmath_dvipng_args = ['-z3']
