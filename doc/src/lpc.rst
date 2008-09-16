@@ -33,6 +33,28 @@ vector in V:
 
 TODO: decent blob for above
 
+.. math:: 
+
+        \begin{pmatrix}
+                -R[1] \\ 
+                -R[2] \\ 
+                \vdots \\ 
+                -R[p] 
+        \end{pmatrix}
+        = 
+        \begin{pmatrix}
+                R[0]    & \overline{R}[1] & \dots  & \overline{R}[p-1] \\ 
+                R[1]    & R[0]            & \ddots & \vdots \\
+                \vdots  & \ddots          & \ddots & \overline{R}[1]\\
+                R[p-1]  & \dots           & R[1]   & R[0]
+        \end{pmatrix}
+        \begin{pmatrix}
+                a[1] \\
+                \vdots \\
+                \vdots \\
+                a[p]
+        \end{pmatrix}
+
 Levinson-Durbin recursion
 -------------------------
 
