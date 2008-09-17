@@ -1,14 +1,15 @@
 .. ###################
 ..  scikits.talkbox
 .. ###################
-.. 
+..
+
 .. htmlonly::
 
     :Release: |version|
     :Date: |today|
 
 .. _contents:
- 
+
 Welcome to talkbox documentation
 ================================
 
