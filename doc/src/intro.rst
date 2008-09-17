@@ -1,11 +1,26 @@
 Introduction
 ============
 
-Talkbox is a set of python modules to extend basic numpy/scipy capabilities for
-signal and speech/audio processing. The focus is on getting python
-implementation for every used algorithm, with optional C code where it makes
-sense, so that it can be used both as a reference for algorithms (python code)
-and reasonably sized problems (C code).
+The following document describes how to use the talkbox scikits for signal
+processing. The document assumes basic knowledge of signal processing (Fourier
+Transform, Linear Time Invariant systems).
+
+Talkbox is set of python modules for speech/signal processing. The following features are planned before a 1.0 release:
+
+    * Spectrum estimation related functions: both parametic (lpc, high
+      resolution methods like music and co), and non-parametric (Welch,
+      periodogram)
+    * Fourier-like transforms (DCT, DST, MDCT, etc...)
+    * Basic signal processing tasks such as resampling
+    * Speech related functionalities: mfcc, mel spectrum, etc..
+    * More as it comes
+
+The goal of this toolbox is to be a sandbox for features which may end up in
+scipy at some point. I also want talkbox to be useful for both research and
+educational purpose. As such, a requirement is to have a pure python
+implementation for everything, with optional C/C++/Lisp for speed: reading
+signal processing in C is no fun, and neither is waiting for your mfcc
+computation one hour before ICASSP submission deadline :).
 
 Prerequisites
 -------------
@@ -18,10 +33,10 @@ and higher) should do.
 .. _Scipy: http://www.scipy.org
 
 Starting with talkbox
-=====================
+---------------------
 
 main namespace
---------------
+^^^^^^^^^^^^^^
 
 The main functions are available through the main scikits.talkbox namespace:
 
@@ -31,7 +46,7 @@ The main functions are available through the main scikits.talkbox namespace:
     import scikits.talkbox as talk
 
 Getting help
-------------
+^^^^^^^^^^^^
 
 All high level functions are duely documented, and are available through the
 usual python facilities:
