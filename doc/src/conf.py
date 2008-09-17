@@ -184,4 +184,4 @@ latex_preamble = r'''
 
 # png math
 #pngmath_dvipng_args = ['-z3']
-#pngmath_use_preview = True
+pngmath_use_preview = True
