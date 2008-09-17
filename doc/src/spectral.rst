@@ -3,50 +3,67 @@ Spectral analysis
 
 Spectral signal analysis is the field concerned with the estimation of the
 distribution of a signal (more exactly its power) in the frequency domain.
-talkbox has several methods to do spectral analysis, both parametric (with an
-underlying signal model) and non-parametric (more general but less efficient
-than parametric methods if the later are applicable).
 
-First, since spectral analysis is usually done on stationary signals, let us
-remind a few definitions on stationarity for stochastic processes
+The Power Spectrum Density (PSD) :math:`S_X` of :math:`X_n` is defined as the
+squared discrete time Fourier transform of :math:`X_n`
 
-Stationary signals
-------------------
+.. math:: \forall f \in \mathbb{R}, \qquad 
+        S_X = \left|{\sum_n{X_n e^{-2\pi j f n}}}\right|^2
 
-A random signal X is said to be (strictly) stationary if its distribution does
-not depend on the time. For time-discrete signals X[n], this is written:
+Under suitable technical conditions, this is equal to the discrete time Fourier
+transform of the autocorrelation function for stationary signals in the wide
+sense:
 
-.. math:: \forall n, k, \mathbb{P}[X[n]] = \mathbb{P}[X[n-k]]
+.. math:: \forall f \in \mathbb{R}, \qquad S_X = \sum_n{\gamma(n) e^{-2\pi j f n}}
 
-Weaker stationarity can be defined, when only some moments of the signal do not
-depend on time. A widely used concept it weakly stationary signals.  A signal
-is said to be weakly stationary if it means and covariance do not depend on
-time, and its covariance function :math:\gamma(n, k) depends only on the time
-difference n-k: 
+This is called the power spectrum density because integrating it over the
+frequency domain gives you the average power of :math:`X` and because it can be
+proved that :math:`S_X` is always positive for any :math:`f`.
 
-.. math:: \forall n, k, \gamma(n, k) = \mathbb{E}[(X[n]-m)(X[k] -m)] = \gamma(n-k)
+TODO: make sure the exact equations (normalization constant) correspond to what
+we compute.
 
-Power Spectrum Density
-----------------------
+Spectral density estimation
+---------------------------
 
-TODO: blob on ESD vs PSD.
+Since in practice, we only have finite signals, we need method to estimate the
+PSD. talkbox implements various methods for PSD estimation, which are
+classified in two broad classes:
 
-.. The most commonly used measure of energy distribution in the frequency domain
-   is the Power Spectrum Density (PSD). For signal s(t) of power P = s^2, the PSD
-   is the Fourier Transform of P. Unfortunately, signals with nonzero average
-   power <P> are not square integrable; in the case of stationary signals in the
-   wide-sense, the Wiener-Khinchin theorem guarantees that
+        * non-parametric (general methods, estimate the PSD directly from the
+          signal)
+        * parametric (use an underlying signal model, for example AR; is less
+          general, but generally more efficient in some sense if applicable).
 
-Non-parametric
---------------
+Non-parametric estimation
+-------------------------
 
 Periodogram
 ^^^^^^^^^^^
 
 .. autofunction:: scikits.talkbox.spectral.basic.periodogram
 
-Parametric
-----------
+Parametric estimation
+---------------------
 
 ar method
 ^^^^^^^^^
+
+Useful complements
+------------------
+
+A random signal :math:`X` is said to be (strictly) stationary if its
+distribution does not depend on the time. For time-discrete signals :math:`X_n`
+of distribution :math:`F_{X_n}` , this is written:
+
+.. math:: \forall n, k, \qquad F_{X_n} = F_{X_{n+k}}
+
+Other stationary concepts can be defined, when only some moments of the
+signal do not depend on time. A widely used concept is weakly stationary
+signals. A signal is said to be weakly stationary (or stationary in the wide
+sense) if its means and covariance do not depend on time, and its covariance
+function :math:`\gamma(n, k)` depends only on the time difference n-k:
+
+.. math:: \forall n, k, \qquad \gamma(n, k) = 
+          \mathbb{E}[(X[n]-m)(X[k] -m)] = \gamma(n-k)
+
