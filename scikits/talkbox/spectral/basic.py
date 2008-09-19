@@ -27,7 +27,7 @@ def periodogram(x, nfft=256):
         raise ValueError("Only rank 1 input supported for now.")
     if not np.isrealobj(x):
         raise ValueError("Only real input supported for now.")
-    if nfft < size:
+    if nfft < n:
         raise ValueError("nfft < signal size not supported yet")
 
     pxx = np.abs(fft(x, nfft)) ** 2
@@ -36,4 +36,4 @@ def periodogram(x, nfft=256):
     else:
         pn = (nfft + 1 )/ 2
 
-    return pxx[:pn] / x.size
+    return pxx[:pn] / n
