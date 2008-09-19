@@ -32,6 +32,12 @@ Have periodogram, aryule and at least one high-resolution method for spectrum
 (MUSIC ?)
 Have good-performance LPC-analysis.
 
+Future
+======
+
+- More parametric spectrum estimation 
+- Polyphase filters ?
+
 References
 ===========
 
