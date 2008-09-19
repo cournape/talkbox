@@ -20,6 +20,13 @@ def periodogram(x, nfft=256):
     Discrepency with matlab: matlab compute the psd in unit of power / radian /
     sample, and we compute the psd in unit of power / sample: to get the same
     result as matlab, just multiply the result from talkbox by 2pi"""
+    # TODO: this is basic to the point of being useless:
+    #   - support windowing
+    #   - normalization/frequency unit + definition
+    #   - one-sided vs two-sided
+    #   - plot
+    #   - support complex input
+    #   - trend/mean handling
     x = np.atleast_1d(x)
     n = x.size
 
