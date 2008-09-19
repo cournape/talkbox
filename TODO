@@ -1,20 +1,20 @@
 Release 0.1
 ===========
 
-rank 1 version of ths following:
-        - autocorrelation
-        - levinson-durbin
-        - lpc, lpc residual
+segment axis code
+
+rank 1 version of the following:
+        - lpc residual
 
 Release 0.2
 ===========
 
 arbitrary rank version of
-        - autocorrelation, levinson-durbin
-        - lpc, lpc residual
+        - lpc residual
 
 Spectrogram estimation:
-        - basic periodogram
+        - basic periodogram with plotting
+        - AR spectrum estimation (again with plotting)
 
 Release 0.3
 ===========
