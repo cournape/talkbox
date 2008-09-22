@@ -6,20 +6,20 @@ def periodogram(x, nfft=None, fs=1):
 
     Parameters
     ----------
-    x: array-like
+    x : array-like
         input signal
-    nfft: int
+    nfft : int
         size of the fft to compute the periodogram. If None (default), the
         length of the signal is used. if nfft > n, the signal is 0 padded.
-    fs: float
+    fs : float
         Sampling rate. By default, is 1 (normalized frequency. e.g. 0.5 is the
         Nyquist limit).
 
     Returns
     -------
-    pxx: array-like
+    pxx : array-like
         The psd estimate.
-    fgrid: array-like
+    fgrid : array-like
         Frequency grid over which the periodogram was estimated.
 
     Notes
@@ -32,12 +32,12 @@ def periodogram(x, nfft=None, fs=1):
     sample, and we compute the psd in unit of power / sample: to get the same
     result as matlab, just multiply the result from talkbox by 2pi"""
     # TODO: this is basic to the point of being useless:
+    #   - support Daniel smoothing
     #   - support windowing
-    #   - normalization/frequency unit + definition
+    #   - trend/mean handling
     #   - one-sided vs two-sided
     #   - plot
     #   - support complex input
-    #   - trend/mean handling
     x = np.atleast_1d(x)
     n = x.size
 
