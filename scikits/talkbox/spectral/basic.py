@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.fftpack import fft, ifft
 
-def periodogram(x, nfft=256):
+def periodogram(x, nfft=None):
     """Compute the periodogram of the given signal, with the given fft size.
 
     Parameters
@@ -9,7 +9,8 @@ def periodogram(x, nfft=256):
     x: array-like
         input signal
     nfft: int
-        size of the fft to compute the periodogram
+        size of the fft to compute the periodogram. By default, the length of
+        the signal.
 
     Notes
     -----
@@ -34,6 +35,8 @@ def periodogram(x, nfft=256):
         raise ValueError("Only rank 1 input supported for now.")
     if not np.isrealobj(x):
         raise ValueError("Only real input supported for now.")
+    if not nfft:
+        nfft = n
     if nfft < n:
         raise ValueError("nfft < signal size not supported yet")
 
