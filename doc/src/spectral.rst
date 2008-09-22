@@ -64,6 +64,8 @@ Parametric estimation
 ar method
 ^^^^^^^^^
 
+TODO: To be implemented
+
 Useful complements
 ------------------
 
