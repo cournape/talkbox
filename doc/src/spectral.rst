@@ -39,12 +39,22 @@ Periodogram
 ^^^^^^^^^^^
 
 The raw periodogram is a relatively straightforward estimator of the PSD. The
-raw periodogram of a signal of length `n` is defined as:
+raw periodogram :math:`I` of a signal of length `N` is defined as:
 
-.. math:: \forall k=0,\ldots,n-1, \qquad I(k/n) \triangleq 
-	  n |{dft(k/n)}|^2 = \frac{1}{n}|{\sum_k{x[k] e^{-2\pi j k / n}}}^2|
+.. math:: I(f) \triangleq \frac{{|\sum_n{x[n] e^{-2\pi j k f/f_s}}|}^2}{fs N}
 
-where dft is the Discrete Fourier Transform.
+where :math:`f_s` is the sampling rate. In practice, the periodogram can only
+be computed on a frequency grid; the most commonly used grid is k/N (normalized
+frequencies): 
+
+.. math:: \forall k \in 0, \ldots, N-1, \qquad I(k) \triangleq
+	  \frac{{|\sum_n{x[n] e^{-2\pi j n k /N}}|}^2}{N f_s}
+
+Which can be computed using the FFT, since the sum is a Discrete Time Fourier
+transform (DFT). For a normalized sampling rate (fs = 1), this simply becomes:
+
+.. math:: \forall k \in 0, \ldots, N-1, \qquad I(k) \triangleq
+	  \frac{{|\sum_n{x[n] e^{-2\pi j n k /N}}|}^2}{N}
 
 .. autofunction:: scikits.talkbox.spectral.basic.periodogram
 
