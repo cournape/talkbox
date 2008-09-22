@@ -16,6 +16,10 @@ Spectrogram estimation:
         - basic periodogram with plotting
         - AR spectrum estimation (again with plotting)
 
+Documentation for periodogram + examples
+Documentation for LPC + examples
+Documentation for Levinson
+
 Release 0.3
 ===========
 
@@ -35,7 +39,7 @@ Have good-performance LPC-analysis.
 Future
 ======
 
-- More parametric spectrum estimation 
+- More parametric spectrum estimation
 - Polyphase filters ?
 
 References
