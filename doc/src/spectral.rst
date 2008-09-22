@@ -20,9 +20,6 @@ This is called the power spectrum density because integrating it over the
 frequency domain gives you the average power of :math:`X` and because it can be
 proved that :math:`S_X` is always positive for any :math:`f`.
 
-TODO: make sure the exact equations (normalization constant) correspond to what
-we compute.
-
 Spectral density estimation
 ---------------------------
 
@@ -40,6 +37,14 @@ Non-parametric estimation
 
 Periodogram
 ^^^^^^^^^^^
+
+The raw periodogram is a relatively straightforward estimator of the PSD. The
+raw periodogram of a signal of length `n` is defined as:
+
+.. math:: \forall k=0,\ldots,n-1, \qquad I(k/n) \triangleq 
+	  n |{dft(k/n)}|^2 = \frac{1}{n}|{\sum_k{x[k] e^{-2\pi j k / n}}}^2|
+
+where dft is the Discrete Fourier Transform.
 
 .. autofunction:: scikits.talkbox.spectral.basic.periodogram
 
