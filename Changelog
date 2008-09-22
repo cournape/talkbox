@@ -1,0 +1,7 @@
+Tue, 23 Sep 2008 01:50:27 +0900
+
+	* levinson is implemented in both python and C (C only support real
+	double; python version can do complex numbers)
+	* lpc implemented (support axis argument)
+	* simple periodogram implemented
+	* 0.1 release
