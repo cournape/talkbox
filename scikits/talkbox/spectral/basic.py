@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.fftpack import fft, ifft
 
-def periodogram(x, nfft=None):
+def periodogram(x, nfft=None, fs=1):
     """Compute the periodogram of the given signal, with the given fft size.
 
     Parameters
@@ -46,4 +46,5 @@ def periodogram(x, nfft=None):
     else:
         pn = (nfft + 1 )/ 2
 
-    return pxx[:pn] / n
+    fgrid = np.linspace(0, fs * 0.5, pn)
+    return pxx[:pn] / (n * fs), fgrid
