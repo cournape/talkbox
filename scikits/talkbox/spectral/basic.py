@@ -9,8 +9,8 @@ def periodogram(x, nfft=None, fs=1):
     x: array-like
         input signal
     nfft: int
-        size of the fft to compute the periodogram. By default, the length of
-        the signal.
+        size of the fft to compute the periodogram. If None (default), the
+        length of the signal is used. if nfft > n, the signal is 0 padded.
     fs: float
         Sampling rate. By default, is 1 (normalized frequency. e.g. 0.5 is the
         Nyquist limit).
