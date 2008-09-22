@@ -7,7 +7,7 @@ from scipy.fftpack import fft, ifft
 
 from scikits.talkbox.tools import nextpow2
 
-from _lpc import levinson as c_levinson
+from scikits.talkbox.linpred._lpc import levinson as c_levinson
 
 __all__ = ['levinson', 'lpc']
 
