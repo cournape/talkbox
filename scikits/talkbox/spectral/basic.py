@@ -12,6 +12,13 @@ def periodogram(x, nfft=None, fs=1):
         size of the fft to compute the periodogram. By default, the length of
         the signal.
 
+    Returns
+    -------
+    pxx: array-like
+        The psd estimate.
+    fgrid: array-like
+        Frequency grid over which the periodogram was estimated.
+
     Notes
     -----
     Only real signals supported for now.
