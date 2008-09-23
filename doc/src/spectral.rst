@@ -68,7 +68,7 @@ Plotting the log periodogram then gives:
 .. htmlonly::
         .. image:: examples/periodogram_1.png
 
-The number of points used for the FFT is quite high to highlight the lobe,
+The number of points used for the FFT has been set high to highlight the lobe,
 artefact of the rectangular window.
 
 .. autofunction:: scikits.talkbox.spectral.basic.periodogram
