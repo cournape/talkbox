@@ -4,8 +4,8 @@ Spectral analysis
 Spectral signal analysis is the field concerned with the estimation of the
 distribution of a signal (more exactly its power) in the frequency domain.
 
-The Power Spectrum Density (PSD) :math:`S_X` of :math:`X_n` is defined as the
-squared discrete time Fourier transform of :math:`X_n`
+The Power Spectrum Density (PSD) S_X of X_n is defined as the squared discrete
+time Fourier transform of X_n
 
 .. math:: \forall f \in \mathbb{R}, \qquad
         S_X = \left|{\sum_n{X_n e^{-2\pi j f n}}}\right|^2
@@ -17,8 +17,8 @@ sense:
 .. math:: \forall f \in \mathbb{R}, \qquad S_X = \sum_n{\gamma(n) e^{-2\pi j f n}}
 
 This is called the power spectrum density because integrating it over the
-frequency domain gives you the average power of :math:`X` and because it can be
-proved that :math:`S_X` is always positive for any :math:`f`.
+frequency domain gives you the average power of X and because it can be
+proved that S_X is always positive for any f.
 
 Spectral density estimation
 ---------------------------
@@ -39,22 +39,17 @@ Periodogram
 ^^^^^^^^^^^
 
 The raw periodogram is a relatively straightforward estimator of the PSD. The
-raw periodogram :math:`I` of a signal of length `N` is defined as:
+raw periodogram I of a signal of length N is defined as:
 
 .. math:: I(f) \triangleq \frac{{|\sum_n{x[n] e^{-2\pi j k f/f_s}}|}^2}{fs N}
 
-where :math:`f_s` is the sampling rate. In practice, the periodogram can only
-be computed on a frequency grid; the most commonly used grid is k/N (normalized
-frequencies):
+where f_s is the sampling rate. In practice, the periodogram can only be
+computed on a frequency grid; the most commonly used grid is k/N (normalized
+frequencies) for k in [0, ..., N-1]. With this grid, the sum becomes a simple
+DFT which can be computed using the FFT.
 
-.. math:: \forall k \in 0, \ldots, N-1, \qquad I(k) \triangleq
-	  \frac{{|\sum_n{x[n] e^{-2\pi j n k /N}}|}^2}{N f_s}
-
-Which can be computed using the FFT, since the sum is a Discrete Time Fourier
-transform (DFT). For a normalized sampling rate (fs = 1), this simply becomes:
-
-.. math:: \forall k \in 0, \ldots, N-1, \qquad I(k) \triangleq
-	  \frac{{|\sum_n{x[n] e^{-2\pi j n k /N}}|}^2}{N}
+Examples
+""""""""
 
 As a first example, let's generate a simple sinusoid signal embedded into white
 noise::
