@@ -45,7 +45,7 @@ raw periodogram :math:`I` of a signal of length `N` is defined as:
 
 where :math:`f_s` is the sampling rate. In practice, the periodogram can only
 be computed on a frequency grid; the most commonly used grid is k/N (normalized
-frequencies): 
+frequencies):
 
 .. math:: \forall k \in 0, \ldots, N-1, \qquad I(k) \triangleq
 	  \frac{{|\sum_n{x[n] e^{-2\pi j n k /N}}|}^2}{N f_s}
