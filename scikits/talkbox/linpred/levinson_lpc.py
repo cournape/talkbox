@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-# Last Change: Mon Sep 15 03:00 PM 2008 J
+# Last Change: Tue Sep 23 11:00 PM 2008 J
 
 import numpy as np
 from scipy.fftpack import fft, ifft
@@ -23,7 +23,6 @@ def lpc(signal, order, axis=-1):
 
     Parameters
     ----------
-
     signal: array_like
         input signal
     order : int
@@ -31,7 +30,6 @@ def lpc(signal, order, axis=-1):
 
     Notes
     -----
-
     This uses Levinson-Durbin recursion for the autocorrelation matrix
     inversion, and fft for the autocorrelation computation.
 

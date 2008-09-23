@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-# Last Change: Mon Sep 08 10:00 PM 2008 J
+# Last Change: Tue Sep 23 11:00 PM 2008 J
 
 import numpy as np
 import scipy as sp
@@ -18,7 +18,6 @@ def lpc_ref(signal, order):
 
     Parameters
     ----------
-
     signal: array_like
         input signal
     order : int
@@ -26,7 +25,6 @@ def lpc_ref(signal, order):
 
     Notes
     ----
-
     This is just for reference, as it is using the direct inversion of the
     toeplitz matrix, which is really slow"""
     if signal.ndim > 1:
@@ -53,11 +51,11 @@ def levinson_1d(r, order):
 
     Parameters
     ---------
-        r : array-like
-            input array to invert (since the matrix is symmetric Toeplitz, the
-            corresponding pxp matrix is defined by p items only). Generally the
-            autocorrelation of the signal for linear prediction coefficients
-            estimation. The first item must be a non zero real.
+    r : array-like
+        input array to invert (since the matrix is symmetric Toeplitz, the
+        corresponding pxp matrix is defined by p items only). Generally the
+        autocorrelation of the signal for linear prediction coefficients
+        estimation. The first item must be a non zero real.
 
     Notes
     ----
@@ -74,7 +72,7 @@ def levinson_1d(r, order):
         -R[p] = R[p-1] R[p-2] ... R[0]      a[p]
                        _
     with respect to a (  is the complex conjugate). Using the special symmetry
-    in the matrix, the inversion can be done in O(p^2) instead of O(p^3).  
+    in the matrix, the inversion can be done in O(p^2) instead of O(p^3).
     """
     r = np.atleast_1d(r)
     if r.ndim > 1:
