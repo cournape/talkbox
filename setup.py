@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-# Last Change: Tue Sep 23 01:00 AM 2008 J
+# Last Change: Tue Sep 23 04:00 PM 2008 J
 
 # Copyright (C) 2008 Cournapeau David <cournape@gmail.com>
 
@@ -70,7 +70,7 @@ if __name__ == "__main__":
         install_requires = 'numpy',
         namespace_packages = ['scikits'],
         packages = setuptools.find_packages(),
-        version = '0.1',
+        version = '0.2dev',
         include_package_data = True,
         #test_suite="tester", # for python setup.py test
         zip_safe = True, # the package can run out of an .egg file
