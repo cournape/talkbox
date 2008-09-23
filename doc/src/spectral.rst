@@ -7,7 +7,7 @@ distribution of a signal (more exactly its power) in the frequency domain.
 The Power Spectrum Density (PSD) :math:`S_X` of :math:`X_n` is defined as the
 squared discrete time Fourier transform of :math:`X_n`
 
-.. math:: \forall f \in \mathbb{R}, \qquad 
+.. math:: \forall f \in \mathbb{R}, \qquad
         S_X = \left|{\sum_n{X_n e^{-2\pi j f n}}}\right|^2
 
 Under suitable technical conditions, this is equal to the discrete time Fourier
@@ -56,6 +56,26 @@ transform (DFT). For a normalized sampling rate (fs = 1), this simply becomes:
 .. math:: \forall k \in 0, \ldots, N-1, \qquad I(k) \triangleq
 	  \frac{{|\sum_n{x[n] e^{-2\pi j n k /N}}|}^2}{N}
 
+As a first example, let's generate a simple sinusoid signal embedded into white
+noise::
+
+        import numpy as np
+        import matplotlib.pyplot as plt
+        from scikits.talkbox.spectral.basic import periodogram
+        fs = 1000
+        x = np.sin(2 * np.pi * 0.15 * fs * np.linspace(0., 0.3, 0.3 * fs))
+        x += 0.1 * np.random.randn(x.size)
+        px, fx = periodogram(x, nfft=16384, fs=fs)
+        plt.plot(fx, 10 * np.log10(px))
+
+Plotting the log periodogram then gives:
+
+.. htmlonly::
+        .. image:: examples/periodogram_1.png
+
+The number of points used for the FFT is quite high to highlight the lobe,
+artefact of the rectangular window.
+
 .. autofunction:: scikits.talkbox.spectral.basic.periodogram
 
 Parametric estimation
@@ -81,6 +101,6 @@ signals. A signal is said to be weakly stationary (or stationary in the wide
 sense) if its means and covariance do not depend on time, and its covariance
 function :math:`\gamma(n, k)` depends only on the time difference n-k:
 
-.. math:: \forall n, k, \qquad \gamma(n, k) = 
+.. math:: \forall n, k, \qquad \gamma(n, k) =
           \mathbb{E}[(X[n]-m)(X[k] -m)] = \gamma(n-k)
 
