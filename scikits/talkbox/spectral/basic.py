@@ -22,6 +22,15 @@ def periodogram(x, nfft=None, fs=1):
     fgrid : array-like
         Frequency grid over which the periodogram was estimated.
 
+    Examples
+    --------
+    Generate a signal with two sinusoids, and compute its periodogram:
+
+    >>> fs = 1000
+    >>> x = np.sin(2 * np.pi  * 0.1 * fs * np.linspace(0, 0.5, 0.5*fs))
+    >>> x += np.sin(2 * np.pi  * 0.2 * fs * np.linspace(0, 0.5, 0.5*fs))
+    >>> px, fx = periodogram(x, 512, fs)
+
     Notes
     -----
     Only real signals supported for now.
