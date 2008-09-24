@@ -11,11 +11,11 @@ from scikits.talkbox.linpred.levinson_lpc import levinson, acorr_lpc
 def test_acorr_lpc():
     x = np.random.randn(12, 5)
     y = acorr_lpc(x)
-    assert_array_equal(y[:, :5], acorr(x, onesided=True))
+    assert_array_equal(y[:, :5], acorr(x, onesided=True)/5)
     assert_array_almost_equal(y[:, 5], np.zeros(y.shape[0], y.dtype))
 
     y = acorr_lpc(x, axis=0)
-    assert_array_equal(y[:12,:], acorr(x, axis=0, onesided=True))
+    assert_array_equal(y[:12,:], acorr(x, axis=0, onesided=True)/12)
     assert_array_almost_equal(y[12, 0], np.zeros((1, y.shape[1]), y.dtype))
 
 class _TestLPCCommon(TestCase):
