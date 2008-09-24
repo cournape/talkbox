@@ -119,9 +119,13 @@ class TestLPCHighBackend(_TestLPCCommon):
 class _LevinsonCommon(TestCase):
     X = np.linspace(1, 11, 11)
     X0 = np.array([1.])
+    E0 = np.array([1.])
     X1 = np.array([1, -2.])
+    E1 = np.array([-3.])
     X5 = np.array([1, -1.166666666667, 0., 0., -0., -0.166666666667])
+    E5 = np.array([-7/3.])
     X10 = np.array([1., -1.0909090909, 0, 0, 0, 0, 0, 0, 0, 0, -0.09090909])
+    E10 = np.array([-2.1818])
 
     Xc = np.linspace(1, 11, 11) + 1.j * np.linspace(0, 10, 11)
     Xc1 = np.array([1, -2-1j])
@@ -240,9 +244,13 @@ class TestLevinson(_LevinsonCommon):
     def setUp(self):
         self.levinson_func = levinson
 
+        # References for filter coefficients
         self.ref = {}
         self.ref[0] = {0: self.Xm0_a0, 1: self.Xm1_a0, 7: self.Xm7_a0}
         self.ref[1] = {0: self.Xm0_a1, 1: self.Xm1_a1, 10: self.Xm10_a1}
+
+        # References for prediction error
+        self.referr = {0: self.E0, 1: self.E1, 5: self.E5, 10: self.E10}
 
     def test_axis0(self):
         for order in [0, 1, 7]:
@@ -253,6 +261,11 @@ class TestLevinson(_LevinsonCommon):
         for order in [0, 1, 10]:
             a, e, k = self.levinson_func(self.Xm, order, 1)
             assert_array_almost_equal(self.ref[1][order], a)
+
+    def test_error_rank1(self):
+        for order in [0, 1, 5, 10]:
+            a, e, k = self.levinson_func(self.X0, order)
+            assert_array_almost_equal(self.referr[order], e)
 
 if __name__ == "__main__":
     run_module_suite()
