@@ -247,7 +247,7 @@ class _LevinsonCommon(TestCase):
             self.levinson_func([], 1)
             self.fail("levinson func succeed with bad argument !")
         except ValueError, e:
-            assert str(e) == "Empty input !"
+            assert str(e) == "Cannot operate on empty array !"
 
 class TestLevinsonPyBackend(_LevinsonCommon):
     def setUp(self):

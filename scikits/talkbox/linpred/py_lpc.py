@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-# Last Change: Tue Sep 23 11:00 PM 2008 J
+# Last Change: Wed Sep 24 05:00 PM 2008 J
 
 import numpy as np
 import scipy as sp
@@ -79,10 +79,10 @@ def levinson_1d(r, order):
         raise ValueError("Only rank 1 are supported for now.")
 
     n = r.size
-    if order > n - 1:
-        raise ValueError("Order should be <= size-1")
-    elif n < 1:
+    if n < 1:
         raise ValueError("Cannot operate on empty array !")
+    elif order > n - 1:
+        raise ValueError("Order should be <= size-1")
 
     if not np.isreal(r[0]):
         raise ValueError("First item of input must be real.")

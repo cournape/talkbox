@@ -169,7 +169,7 @@ PyObject* array_levinson(PyObject* in, long order)
 
 	size = PyArray_SIZE(arr);
 	if  (size < 1) {
-		PyErr_SetString(PyExc_ValueError, "Empty input !");
+		PyErr_SetString(PyExc_ValueError, "Cannot operate on empty array !");
 		goto fail;
 	}
 
