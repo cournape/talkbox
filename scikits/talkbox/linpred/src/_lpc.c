@@ -7,8 +7,6 @@
 
 #include "levinson.h"
 
-static PyObject *LpcError;
-
 /*
  * Levinson-Durbin recursion on one array. Output arrays are put into
  * alpccoeff, klpccoeff and elpc.
@@ -171,14 +169,15 @@ PyObject* array_levinson(PyObject* in, long order)
 
 	size = PyArray_SIZE(arr);
 	if  (size < 1) {
-		return NULL;
+		PyErr_SetString(PyExc_ValueError, "Empty input !");
+		goto fail;
 	}
 
 	rank = PyArray_NDIM(arr);
 	n = PyArray_DIM(arr, rank-1);
 	if (n <= order) {
-		PyErr_SetString(LpcError, "Order has to be < input size");
-		return NULL;
+		PyErr_SetString(PyExc_ValueError, "Order should be <= size-1");
+		goto fail;
 	}
 
 	switch(rank) {
@@ -219,6 +218,11 @@ PyObject* PyArray_Levinson(PyObject* self, PyObject* args)
 	}
 
 	out = array_levinson(in, order);
+        if (out == NULL) {
+                if (!PyErr_ExceptionMatches(PyExc_ValueError)) {
+                        return NULL;
+                }
+        }
 
 	return out;
 }
