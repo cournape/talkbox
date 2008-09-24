@@ -190,11 +190,11 @@ PyObject* array_levinson(PyObject* in, long order)
 	Py_INCREF(alpc);
 	PyTuple_SET_ITEM(out, 0, (PyObject*)alpc);
 
-	Py_INCREF(klpc);
-	PyTuple_SET_ITEM(out, 1, (PyObject*)klpc);
-
 	Py_INCREF(err);
-	PyTuple_SET_ITEM(out, 2, (PyObject*)err);
+	PyTuple_SET_ITEM(out, 1, (PyObject*)err);
+
+	Py_INCREF(klpc);
+	PyTuple_SET_ITEM(out, 2, (PyObject*)klpc);
 
 	return out;
 
