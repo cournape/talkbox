@@ -235,11 +235,19 @@ class _LevinsonCommon(TestCase):
             assert_array_almost_equal(self.referr[order], e)
 
     def test_arg_handling(self):
+        # Check Order
         try:
             self.levinson_func(self.X0, 1)
             self.fail("levinson func succeed with bad argument !")
         except ValueError, e:
             assert str(e) == "Order should be <= size-1"
+
+        # Check empty input
+        try:
+            self.levinson_func([], 1)
+            self.fail("levinson func succeed with bad argument !")
+        except ValueError, e:
+            assert str(e) == "Empty input !"
 
 class TestLevinsonPyBackend(_LevinsonCommon):
     def setUp(self):
