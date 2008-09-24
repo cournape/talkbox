@@ -32,16 +32,42 @@ and higher) should do.
 .. _Numpy: http://www.scipy.org
 .. _Scipy: http://www.scipy.org
 
+Other useful packages are matplotlib, and audiolab scikits. They are not
+mandatory, but will be assumed for the examples in this documentation.
+
+Installing talkbox
+------------------
+
+Unfortunately, at this point, your only option is to install talkbox from
+sources:
+
+.. code-block:: python
+        :linenos:
+
+        svn co http://svn.scipy.org/svn/scikits/trunk/talkbox
+
+You can install talkbox with the usual setup.py method in the talkbox source
+tree:
+
+.. code-block:: python
+        :linenos:
+
+        python setup.py install
+
+If you don't want to install it as a python egg (for stow, etc...), you can use:
+
+.. code-block:: python
+        :linenos:
+
+        python setup.py install --single-version-externally-managed --record=/dev/null
+
 Starting with talkbox
 ---------------------
 
 main namespace
 ^^^^^^^^^^^^^^
 
-The main functions are available through the main scikits.talkbox namespace:
-
-.. code-block:: python
-   :linenos:
+The main functions are available through the main scikits.talkbox namespace::
 
     import scikits.talkbox as talk
 
@@ -49,10 +75,7 @@ Getting help
 ^^^^^^^^^^^^
 
 All high level functions are duely documented, and are available through the
-usual python facilities:
-
-.. code-block:: python
-   :linenos:
+usual python facilities::
 
     import scikits.talkbox as talk
     help(talk)
