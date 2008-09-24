@@ -234,6 +234,13 @@ class _LevinsonCommon(TestCase):
             a, e, k = self.levinson_func(self.X, order)
             assert_array_almost_equal(self.referr[order], e)
 
+    def test_arg_handling(self):
+        try:
+            self.levinson_func(self.X0, 1)
+            self.fail("levinson func succeed with bad argument !")
+        except ValueError, e:
+            assert str(e) == "Order should be <= size-1"
+
 class TestLevinsonPyBackend(_LevinsonCommon):
     def setUp(self):
         self.levinson_func = py_levinson
