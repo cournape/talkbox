@@ -53,10 +53,13 @@ def lpc(signal, order, axis=-1):
 
 def _acorr_last_axis(x, nfft, maxlag):
     a = np.real(ifft(np.abs(fft(x, n=nfft) ** 2)))
-    return a[..., :maxlag+1]
+    return a[..., :maxlag+1] / x.shape[-1]
 
 def acorr_lpc(x, axis=-1):
     """Compute autocorrelation of x along the given axis.
+
+    This compute the biased autocorrelation estimator (divided by the size of
+    input signal)
 
     Notes
     -----
