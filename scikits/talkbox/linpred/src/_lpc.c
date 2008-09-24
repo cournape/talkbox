@@ -16,8 +16,7 @@ static PyObject *LpcError;
 int array_levinson_1d(PyArrayObject *arr, long order, PyArrayObject** alpccoeff,
 	              PyArrayObject **klpccoeff, PyArrayObject **elpc)
 {
-	double *acoeff, *kcoeff, *tmp;
-	double err;
+	double *acoeff, *kcoeff, *tmp, *err;
 	npy_int alpc_size = (order + 1);
 	npy_int klpc_size = order;
 	npy_int elpc_size = 1;
@@ -27,16 +26,20 @@ int array_levinson_1d(PyArrayObject *arr, long order, PyArrayObject** alpccoeff,
 	if (acoeff == NULL) {
 		return -1;
 	}
+	err = malloc(sizeof(*err));
+	if (err == NULL) {
+                goto clean_acoeff;
+	}
 	kcoeff = malloc(sizeof(*kcoeff) * order);
 	if (kcoeff == NULL) {
-                goto clean_acoeff;
+                goto clean_err;
 	}
 	tmp = malloc(sizeof(*tmp) * order);
 	if (tmp == NULL) {
                 goto clean_kcoeff;
 	}
 
-	levinson((double*)(arr->data), order, acoeff, &err, kcoeff, tmp);
+	levinson((double*)(arr->data), order, acoeff, err, kcoeff, tmp);
 
 	*alpccoeff = (PyArrayObject*)PyArray_SimpleNewFromData(1, &alpc_size,
 						      PyArray_DOUBLE, acoeff);
@@ -51,7 +54,7 @@ int array_levinson_1d(PyArrayObject *arr, long order, PyArrayObject** alpccoeff,
         }
 
 	*elpc = (PyArrayObject*)PyArray_SimpleNewFromData(1, &elpc_size, NPY_DOUBLE,
-						 &err);
+						 err);
         if(*elpc == NULL) {
                 goto clean_klpccoeff;
         }
@@ -66,6 +69,8 @@ clean_tmp:
         free(tmp);
 clean_kcoeff:
         free(kcoeff);
+clean_err:
+        free(err);
 clean_acoeff:
         free(acoeff);
         return -1;
