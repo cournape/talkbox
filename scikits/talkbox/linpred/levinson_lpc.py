@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-# Last Change: Tue Sep 23 11:00 PM 2008 J
+# Last Change: Wed Sep 24 06:00 PM 2008 J
 
 import numpy as np
 from scipy.fftpack import fft, ifft
@@ -27,6 +27,15 @@ def lpc(signal, order, axis=-1):
         input signal
     order : int
         LPC order (the output will have order + 1 items)
+
+    Returns
+    -------
+    a : array-like
+        the solution of the inversion.
+    e : array-like
+        the prediction error.
+    k : array-like
+        reflection coefficients.
 
     Notes
     -----
