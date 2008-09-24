@@ -67,9 +67,27 @@ class TestLPCPyBackend(_TestLPCCommon):
         assert_array_almost_equal(self.X11, self.lpc_func(self.X, 11))
 
 class TestLPCHighBackend(_TestLPCCommon):
+    E0 = np.array([35.])
+    E1 = np.array([9.28571428571428])
+    E5 = np.array([9.15927742966687])
+    E10 = np.array([9.13002661779096])
+
     def setUp(self):
         from scikits.talkbox.linpred.levinson_lpc import lpc
         self.lpc = lpc
+
+    def test_pred_err(self):
+        err = self.lpc(self.X, 0)[1]
+        assert_array_almost_equal(self.E0, err)
+
+        err = self.lpc(self.X, 1)[1]
+        assert_array_almost_equal(self.E1, err)
+
+        err = self.lpc(self.X, 5)[1]
+        assert_array_almost_equal(self.E5, err)
+
+        err = self.lpc(self.X, 10)[1]
+        assert_array_almost_equal(self.E10, err)
 
     def test_order0(self):
         """Testing actual lpc order 0."""
