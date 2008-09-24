@@ -125,7 +125,7 @@ class _LevinsonCommon(TestCase):
     X5 = np.array([1, -1.166666666667, 0., 0., -0., -0.166666666667])
     E5 = np.array([-7/3.])
     X10 = np.array([1., -1.0909090909, 0, 0, 0, 0, 0, 0, 0, 0, -0.09090909])
-    E10 = np.array([-2.1818])
+    E10 = np.array([-2.181818181818181818])
 
     Xc = np.linspace(1, 11, 11) + 1.j * np.linspace(0, 10, 11)
     Xc1 = np.array([1, -2-1j])
