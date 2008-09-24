@@ -213,6 +213,8 @@ class _LevinsonCommon(TestCase):
                          -5.53240143e-15, -3.20313334e-15, -5.92624612e-16,
                           6.94756752e-16, -6.06060606e-03]])
 
+    # References for prediction error
+    referr = {0: E0, 1: E1, 5: E5, 10: E10}
 
     def setUp(self):
         self.levinson_func = None
@@ -226,6 +228,11 @@ class _LevinsonCommon(TestCase):
     def test_simple2(self):
         assert_array_almost_equal(self.levinson_func(self.X, 5)[0], self.X5)
         assert_array_almost_equal(self.levinson_func(self.X, 10)[0], self.X10)
+
+    def test_error_rank1(self):
+        for order in [0, 1, 5, 10]:
+            a, e, k = self.levinson_func(self.X, order)
+            assert_array_almost_equal(self.referr[order], e)
 
 class TestLevinsonPyBackend(_LevinsonCommon):
     def setUp(self):
@@ -249,9 +256,6 @@ class TestLevinson(_LevinsonCommon):
         self.ref[0] = {0: self.Xm0_a0, 1: self.Xm1_a0, 7: self.Xm7_a0}
         self.ref[1] = {0: self.Xm0_a1, 1: self.Xm1_a1, 10: self.Xm10_a1}
 
-        # References for prediction error
-        self.referr = {0: self.E0, 1: self.E1, 5: self.E5, 10: self.E10}
-
     def test_axis0(self):
         for order in [0, 1, 7]:
             a, e, k = self.levinson_func(self.Xm, order, 0)
@@ -261,11 +265,6 @@ class TestLevinson(_LevinsonCommon):
         for order in [0, 1, 10]:
             a, e, k = self.levinson_func(self.Xm, order, 1)
             assert_array_almost_equal(self.ref[1][order], a)
-
-    def test_error_rank1(self):
-        for order in [0, 1, 5, 10]:
-            a, e, k = self.levinson_func(self.X0, order)
-            assert_array_almost_equal(self.referr[order], e)
 
 if __name__ == "__main__":
     run_module_suite()
