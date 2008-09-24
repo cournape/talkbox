@@ -1,6 +1,8 @@
 import numpy as np
 from scipy.fftpack import fft, ifft
 
+from scikits.talkbox.linpred import lpc
+
 def periodogram(x, nfft=None, fs=1):
     """Compute the periodogram of the given signal, with the given fft size.
 
@@ -67,3 +69,58 @@ def periodogram(x, nfft=None, fs=1):
 
     fgrid = np.linspace(0, fs * 0.5, pn)
     return pxx[:pn] / (n * fs), fgrid
+
+def arspec(x, order, nfft=None, fs=1):
+    """Compute the spectral density using an AR model.
+
+    An AR model of the signal is estimated through the Yule-Walker equations;
+    the estimated AR coefficient are then used to compute the spectrum, which
+    can be computed explicitely for AR models.
+
+    Parameters
+    ----------
+    x : array-like
+        input signal
+    order : int
+        Order of the LPC computation.
+    nfft : int
+        size of the fft to compute the periodogram. If None (default), the
+        length of the signal is used. if nfft > n, the signal is 0 padded.
+    fs : float
+        Sampling rate. By default, is 1 (normalized frequency. e.g. 0.5 is the
+        Nyquist limit).
+
+    Returns
+    -------
+    pxx : array-like
+        The psd estimate.
+    fgrid : array-like
+        Frequency grid over which the periodogram was estimated.
+    """
+
+    x = np.atleast_1d(x)
+    n = x.size
+
+    if x.ndim > 1:
+        raise ValueError("Only rank 1 input supported for now.")
+    if not np.isrealobj(x):
+        raise ValueError("Only real input supported for now.")
+    if not nfft:
+        nfft = n
+    if nfft < n:
+        raise ValueError("nfft < signal size not supported yet")
+
+    a, e, k = lpc(x, order)
+
+    # This is not enough to deal correctly with even/odd size
+    if nfft % 2 == 0:
+        pn = nfft / 2 + 1
+    else:
+        pn = (nfft + 1 )/ 2
+
+    px = 1 / np.fft.fft(a, nfft)[:pn]
+    pxx = np.real(np.conj(px) * px)
+    pxx /= fs / e
+    fx = np.linspace(0, fs * 0.5, pxx.size)
+    return pxx, fx
+
