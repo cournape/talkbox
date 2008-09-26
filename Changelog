@@ -1,3 +1,11 @@
+Thu, 25 Sep 2008 01:38:44 +0900
+	* Fix bug in levinson error computation (data given to
+	PyArray_NewFromData was not allocated on the heap).
+	* Autocorrelation now is the biased estimator (fix discrepancy with
+	matlab for lpc)
+	* Initial version of arspec
+	* Better error handling of input errors in C levinson
+
 Tue, 23 Sep 2008 01:50:27 +0900
 
 	* levinson is implemented in both python and C (C only support real
