@@ -35,6 +35,8 @@ def dctii(x):
     ====
     Use fft.
     """
+    if np.isrealobj(x):
+        raise ValueError("Complex input not supported")
     n = x.size
     y = np.zeros(n * 4, x.dtype)
     y[1:2*n:2] = x
