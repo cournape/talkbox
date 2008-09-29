@@ -47,6 +47,25 @@ def direct_dctii_2(x):
     return a.sum(axis = 1)
 
 def dctii(x):
+    """Compute a Discrete Cosine Transform, type II.
+
+    The DCT type II is defined as:
+
+        \forall u \in 0...N-1, 
+        dct(u) = a(u) sum_{i=0}^{N-1}{f(i)cos((i + 0.5)\pi u}
+
+    Where a(0) = sqrt(1/(4N)), a(u) = sqrt(1/(2N)) for u > 0
+
+    Parameters
+    ==========
+    x : array-like
+        input signal
+
+    Returns
+    =======
+    y : array-like
+        DCT-II
+    """
     n = x.size
     y = np.zeros(n * 4, x.dtype)
     y[1:2*n:2] = x
