@@ -1,7 +1,6 @@
 """Module implementing various DCTs."""
 
 # TODO:
-# - implement with fft for a practical implementation
 # - make it work along an axis
 # - implement dct I, II, III and IV
 # - implement mdct
@@ -65,6 +64,10 @@ def dctii(x):
     =======
     y : array-like
         DCT-II
+
+    Note
+    ====
+    Use fft.
     """
     n = x.size
     y = np.zeros(n * 4, x.dtype)
