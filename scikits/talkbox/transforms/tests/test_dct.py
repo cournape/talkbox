@@ -1,7 +1,8 @@
 import numpy as np
 from numpy.testing import TestCase, assert_array_almost_equal
 
-from scikits.talkbox.transforms.dct import direct_dctii, direct_dctii_2, dctii
+from scikits.talkbox.transforms.dct_ref import direct_dctii, direct_dctii_2
+from scikits.talkbox.transforms.dct import dctii
 
 class TestDCTTypeII(TestCase):
     Y0 = np.array([16.58312395177700, -10.41945851392763, 0.,
@@ -26,6 +27,6 @@ class TestDCTTypeII(TestCase):
         assert_array_almost_equal(self.Y1, direct_dctii_2(self.X1))
 
     def test_simple(self):
-        """Test 1d input, 2nd direct implementation."""
+        """Test 1d input, fft implementation."""
         assert_array_almost_equal(self.Y0, dctii(self.X0))
         assert_array_almost_equal(self.Y1, dctii(self.X1))
