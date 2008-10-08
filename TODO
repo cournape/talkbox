@@ -13,7 +13,8 @@ arbitrary rank version of
         - lpc residual
 
 Spectrogram estimation:
-        - basic periodogram with plotting
+	- tapping, daniel smoothing should work (See Bloomfield)
+        - add plotting capabilities to periodogram
         - AR spectrum estimation (again with plotting)
 
 Documentation for periodogram + examples
@@ -24,7 +25,7 @@ Release 0.3
 ===========
 
 Implement dct II and IV from fft
-
+Implement real cepstrum
 ...
 
 Release 1.0
