@@ -124,3 +124,27 @@ def arspec(x, order, nfft=None, fs=1):
     fx = np.linspace(0, fs * 0.5, pxx.size)
     return pxx, fx
 
+def taper(n, p=0.1):
+    """Return a split cosine bell taper (or window)
+
+    Parameters
+    ----------
+        n: int
+            number of samples of the taper
+        p: float
+            proportion of taper (0 <= p <= 1.)
+
+    Note
+    ----
+    p represents the proportion of tapered (or "smoothed") data compared to a
+    boxcar.
+    """
+    if p > 1. or p < 0:
+        raise ValueError("taper proportion should be betwen 0 and 1 (was %f)"
+                         % p)
+    w = np.ones(n)
+    ntp = np.floor(0.5 * n * p)
+    w[:ntp] = 0.5 * (1 - np.cos(np.pi * 2 * np.linspace(0, 0.5, ntp)))
+    w[-ntp:] = 0.5 * (1 - np.cos(np.pi * 2 * np.linspace(0.5, 0, ntp)))
+
+    return w
