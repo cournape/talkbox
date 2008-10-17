@@ -1,8 +1,9 @@
 from unittest import TestCase
 
 import numpy as np
+from numpy.testing import assert_array_almost_equal
 
-from scikits.talkbox.spectrum.basic import specgram
+from scikits.talkbox.spectral.basic import periodogram
 
 lh = np.array([2.4, 2.4, 2.4, 2.2, 2.1, 1.5, 2.3, 2.3, 2.5, 2.0, 1.9, 1.7,
 2.2, 1.8, 3.2, 3.2, 2.7, 2.2, 2.2, 1.9, 1.9, 1.8, 2.7, 3.0, 2.3, 2.0, 2.0, 2.9,
@@ -18,4 +19,5 @@ lh_spec_raw = np.array([0.32650971, 0.79865114, 1.25684523, 0.66284366,
 
 class TestSpecgram(TestCase):
     def test_raw(self):
-        pass
+        sp = periodogram(lh)[0]
+        assert_array_almost_equal(sp[1:], lh_spec_raw)
