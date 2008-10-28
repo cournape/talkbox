@@ -173,6 +173,7 @@ PyObject* array_levinson(PyObject* in, long order)
 			array_levinson_nd(arr, order, &alpc, &klpc, &err);
 			break;
 	}
+        Py_DECREF(arr);
 
 	out = PyTuple_New(3);
 
