@@ -66,28 +66,14 @@ int array_levinson_nd(PyArrayObject *arr, long order,
 	double *err;
 	double *data;
 	npy_int rank;
-	npy_int *alpc_size;
-	npy_int *klpc_size;
-	npy_int *elpc_size;
+	npy_int alpc_size[NPY_MAXDIMS];
+	npy_int klpc_size[NPY_MAXDIMS];
+	npy_int elpc_size[NPY_MAXDIMS];
 	npy_int n, nrepeat;
 	int i;
 
 	rank = PyArray_NDIM(arr);
 	if (rank < 2) {
-		return -1;
-	}
-
-	/* Set dimensions for output array */
-	alpc_size = malloc(sizeof(*alpc_size) * rank);
-	if (alpc_size == NULL) {
-		return -1;
-	}
-	klpc_size = malloc(sizeof(*klpc_size) * rank);
-	if (klpc_size == NULL) {
-		return -1;
-	}
-	elpc_size = malloc(sizeof(*elpc_size) * (rank-1));
-	if (elpc_size == NULL) {
 		return -1;
 	}
 
@@ -101,32 +87,32 @@ int array_levinson_nd(PyArrayObject *arr, long order,
 	alpc_size[rank-1] = order + 1;
 	klpc_size[rank-1] = order;
 
-	/* XXX: use data malloc from numpy */
-	acoeff = malloc(sizeof(*acoeff) * nrepeat * (order + 1));
-	if (acoeff == NULL) {
-		return -1;
-	}
-	kcoeff = malloc(sizeof(*kcoeff) * nrepeat * order);
-	if (kcoeff == NULL) {
-		return -1;
-	}
-	err = malloc(sizeof(*err) * nrepeat);
-	if (err == NULL) {
-		return -1;
-	}
+	*alpccoeff = (PyArrayObject*)PyArray_SimpleNew(rank, alpc_size,
+                                                       PyArray_DOUBLE);
+        if(*alpccoeff == NULL) {
+                return -1;
+        }
+
+	*klpccoeff = (PyArrayObject*)PyArray_SimpleNew(rank, klpc_size,
+						       NPY_DOUBLE);
+        if(*klpccoeff == NULL) {
+                goto clean_alpccoeff;
+        }
+
+        *elpc = (PyArrayObject*)PyArray_SimpleNew(rank-1, elpc_size, NPY_DOUBLE);
+        if(*elpc == NULL) {
+                goto clean_klpccoeff;
+        }
+
 	tmp = malloc(sizeof(*tmp) * order);
 	if (tmp == NULL) {
-		return -1;
+                goto clean_elpc;
 	}
 
-	*alpccoeff = (PyArrayObject*)PyArray_SimpleNewFromData(rank, alpc_size,
-						      PyArray_DOUBLE, acoeff);
-	*klpccoeff = (PyArrayObject*)PyArray_SimpleNewFromData(rank, klpc_size,
-						      NPY_DOUBLE, kcoeff);
-	*elpc = (PyArrayObject*)PyArray_SimpleNewFromData(rank-1, elpc_size, NPY_DOUBLE,
-						 err);
-
 	data = (double*)arr->data;
+	acoeff = (double*)((*alpccoeff)->data);
+	kcoeff = (double*)((*klpccoeff)->data);
+	err = (double*)((*elpc)->data);
 	n = PyArray_DIM(arr, rank-1);
 	for(i = 0; i < nrepeat; ++i) {
 		levinson(data, order, acoeff, err, kcoeff, tmp);
@@ -135,7 +121,17 @@ int array_levinson_nd(PyArrayObject *arr, long order,
 		kcoeff += order;
 		err += 1;
 	}
-	return 0;
+
+        free(tmp);
+        return 0;
+
+clean_elpc:
+        Py_DECREF(*elpc);
+clean_klpccoeff:
+        Py_DECREF(*klpccoeff);
+clean_alpccoeff:
+        Py_DECREF(*alpccoeff);
+	return -1;
 }
 
 PyObject* array_levinson(PyObject* in, long order)
