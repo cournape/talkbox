@@ -14,63 +14,47 @@
 int array_levinson_1d(PyArrayObject *arr, long order, PyArrayObject** alpccoeff,
 	              PyArrayObject **klpccoeff, PyArrayObject **elpc)
 {
-	double *acoeff, *kcoeff, *tmp, *err;
+	double *tmp;
 	npy_int alpc_size = (order + 1);
 	npy_int klpc_size = order;
 	npy_int elpc_size = 1;
 
-	/* XXX: use data malloc from numpy */
-	acoeff = malloc(sizeof(*acoeff) * (order + 1));
-	if (acoeff == NULL) {
-		return -1;
-	}
-	err = malloc(sizeof(*err));
-	if (err == NULL) {
-                goto clean_acoeff;
-	}
-	kcoeff = malloc(sizeof(*kcoeff) * order);
-	if (kcoeff == NULL) {
-                goto clean_err;
-	}
-	tmp = malloc(sizeof(*tmp) * order);
-	if (tmp == NULL) {
-                goto clean_kcoeff;
-	}
-
-	levinson((double*)(arr->data), order, acoeff, err, kcoeff, tmp);
-
-	*alpccoeff = (PyArrayObject*)PyArray_SimpleNewFromData(1, &alpc_size,
-						      PyArray_DOUBLE, acoeff);
+	*alpccoeff = (PyArrayObject*)PyArray_SimpleNew(1, &alpc_size,
+                                                       PyArray_DOUBLE);
         if(*alpccoeff == NULL) {
-                goto clean_tmp;
+                return -1;
         }
 
-	*klpccoeff = (PyArrayObject*)PyArray_SimpleNewFromData(1, &klpc_size,
-						      NPY_DOUBLE, kcoeff);
+	*klpccoeff = (PyArrayObject*)PyArray_SimpleNew(1, &klpc_size,
+						       NPY_DOUBLE);
         if(*klpccoeff == NULL) {
                 goto clean_alpccoeff;
         }
 
-	*elpc = (PyArrayObject*)PyArray_SimpleNewFromData(1, &elpc_size, NPY_DOUBLE,
-						 err);
+        *elpc = (PyArrayObject*)PyArray_SimpleNew(1, &elpc_size, NPY_DOUBLE);
         if(*elpc == NULL) {
                 goto clean_klpccoeff;
         }
 
+        tmp = malloc(sizeof(*tmp) * order);
+	if (tmp == NULL) {
+                goto clean_elpc;
+	}
+
+        levinson((double*)(arr->data), order, 
+                 (double*)((*alpccoeff)->data), (double*)((*elpc)->data),
+                 (double*)((*klpccoeff)->data), tmp);
+
+        free(tmp);
+
 	return 0;
 
+clean_elpc:
+        Py_DECREF(*elpc);
 clean_klpccoeff:
         Py_DECREF(*klpccoeff);
 clean_alpccoeff:
         Py_DECREF(*alpccoeff);
-clean_tmp:
-        free(tmp);
-clean_kcoeff:
-        free(kcoeff);
-clean_err:
-        free(err);
-clean_acoeff:
-        free(acoeff);
         return -1;
 }
 
