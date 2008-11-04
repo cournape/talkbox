@@ -70,7 +70,7 @@ if __name__ == "__main__":
         install_requires = 'numpy',
         namespace_packages = ['scikits'],
         packages = setuptools.find_packages(),
-        version = '0.2dev',
+        version = '0.2',
         include_package_data = True,
         #test_suite="tester", # for python setup.py test
         zip_safe = True, # the package can run out of an .egg file
