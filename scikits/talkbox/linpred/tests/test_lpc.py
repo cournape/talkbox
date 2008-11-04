@@ -7,6 +7,7 @@ from scikits.talkbox.tools import acorr
 from scikits.talkbox.linpred.py_lpc import lpc_ref, levinson_1d as py_levinson
 from scikits.talkbox.linpred._lpc import levinson as c_levinson
 from scikits.talkbox.linpred.levinson_lpc import levinson, acorr_lpc
+from scikits.talkbox.linpred.common import lpcres
 
 def test_acorr_lpc():
     x = np.random.randn(12, 5)
@@ -298,6 +299,16 @@ class TestLevinson(_LevinsonCommon):
         for order in [0, 1, 10]:
             a, e, k = self.levinson_func(self.Xm, order, 1)
             assert_array_almost_equal(self.ref[1][order], a)
+
+class TestLPCResidual(TestCase):
+    def test_simple(self):
+        x = np.linspace(0, 10, 11)
+        r_res = np.array([0.,  1.,  1.08531469, 1.23776224, 1.39020979,
+                          1.54265734, 1.6951049, 1.84755245, 2., 2.15244755,
+                          2.3048951 ])
+
+        res = lpcres(x, 2) 
+        assert_array_almost_equal(res, r_res)
 
 if __name__ == "__main__":
     run_module_suite()

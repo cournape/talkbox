@@ -1,7 +1,7 @@
 from scipy.signal import lfilter
 from scikits.talkbox.linpred import lpc
 
-def lpcres(signal, order, axis = -1):
+def lpcres(signal, order):
     """Compute the LPC residual of a signal.
 
     The LPC residual is the 'error' signal from LPC analysis, and is defined
@@ -17,8 +17,6 @@ def lpcres(signal, order, axis = -1):
         input signal
     order : int
         LPC order
-    axis : int
-        axis along which to compute the LPC residual
 
     Returns
     -------
@@ -34,4 +32,4 @@ def lpcres(signal, order, axis = -1):
     In AR modelling, the residual is simply the estimated excitation of the AR
     filter.
     """
-    return lfilter(lpc(signal, order)[0], 1., signal, axis)
+    return lfilter(lpc(signal, order)[0], 1., signal)
