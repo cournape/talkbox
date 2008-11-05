@@ -34,44 +34,41 @@ MAINTAINER_EMAIL    = 'david@ar.media.kyoto-u.ac.jp',
 URL                 = 'http://projects.scipy.org/scipy/scikits'
 LICENSE             = 'MIT'
 DOWNLOAD_URL        = URL
+VERSION             = "0.2"
 
 import setuptools
 from numpy.distutils.core import setup
 
-def configuration(parent_package='', top_path=None):
+def configuration(parent_package='', top_path=None, package_name=DISTNAME):
     if os.path.exists('MANIFEST'): os.remove('MANIFEST')
 
     from numpy.distutils.misc_util import Configuration
     config = Configuration(None, parent_package, top_path,
-        maintainer  = MAINTAINER,
-        maintainer_email = MAINTAINER_EMAIL,
-        description = DESCRIPTION,
-        license = LICENSE,
-        url = URL,
-        download_url = DOWNLOAD_URL,
-        long_description = LONG_DESCRIPTION)
+        namespace_packages = ['scikits'])
 
-    #config.set_options(
-    #            ignore_setup_xxx_py=True,
-    #            assume_default_configuration=True,
-    #            delegate_options_to_subpackages=True,
-    #            quiet=True,
-    #)
+    config.set_options(
+                ignore_setup_xxx_py=True,
+                assume_default_configuration=True,
+                delegate_options_to_subpackages=True,
+                quiet=True,
+    )
 
     config.add_subpackage('scikits')
     config.add_subpackage(DISTNAME)
-    #config.add_data_files('scikits/__init__.py')
+    config.add_data_files('scikits/__init__.py')
 
     return config
 
 if __name__ == "__main__":
     setup(configuration = configuration,
-        name = DISTNAME,
         install_requires = 'numpy',
-        namespace_packages = ['scikits'],
         packages = setuptools.find_packages(),
-        version = '0.2',
         include_package_data = True,
+        name = DISTNAME,
+        version = VERSION,
+        description = DESCRIPTION,
+        long_description = LONG_DESCRIPTION,
+        license = LICENSE,
         #test_suite="tester", # for python setup.py test
         zip_safe = True, # the package can run out of an .egg file
         classifiers =
