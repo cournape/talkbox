@@ -1,9 +1,6 @@
 Release 0.2
 ===========
 
-arbitrary rank version of
-        - lpc residual
-
 Spectrogram estimation:
 	- tapping, daniel smoothing should work (See Bloomfield)
         - add plotting capabilities to periodogram
