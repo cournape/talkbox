@@ -3,7 +3,7 @@ import numpy as np
 from scipy.signal import lfilter
 
 from scikits.talkbox.linpred import lpc
-from scikits.talkbox.tools.ffilter import slfilter
+from scikits.talkbox.tools import slfilter
 
 def lpcres(signal, order):
     """Compute the LPC residual of a signal.
