@@ -1,3 +1,8 @@
+Fri, 21 Nov 2008 20:59:57 +0900
+	* Add a function slfilter in tools to filter a set of windows
+	* Add a cython version of slfilter
+	* Use slfilter to implement rank 2 of linpred
+
 Wed, 5 Nov 2008 04:13:05 +0900
 	* Fix some major memory leaks in levinson C code
 	* Fix DCT with fft backend
