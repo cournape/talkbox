@@ -6,6 +6,7 @@ def configuration(parent_package='', top_path=None):
     config = Configuration('tools', parent_package, top_path)
     config.add_data_dir('tests')
     config.add_extension('cffilter', ['src/cffilter.c'])
+    config.add_extension('cacorr', ['src/cacorr.c'])
 
     return config
 
