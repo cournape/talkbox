@@ -8,3 +8,4 @@ env.Append(CFLAGS = ["-Wall", "-Wextra", "-W"])
 env.Append(CFLAGS = ["-O3", "-funroll-loops"])
 
 env.SharedLibrary("cffilter.c", SHLIBPREFIX="")
+env.SharedLibrary("cacorr.c", SHLIBPREFIX="")

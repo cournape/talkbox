@@ -1,7 +1,10 @@
 import numpy as np
 from scipy.signal import lfilter
 
+from scikits.talkbox.tools.correlations import acorr
+
 from cffilter import cslfilter as lfilter2
+from cacorr import acorr as cacorr
 
 def f1(b, a, x):
     y = np.empty(x.shape, x.dtype)
@@ -24,3 +27,13 @@ x = np.random.randn(nframes, 256)
 y = f1(b, a, x)
 yr = f2(b, a, x)
 np.testing.assert_array_almost_equal(y, yr)
+
+x = np.random.randn(10, 5)
+
+maxlag = 1
+onesided = False
+axis = -1
+y = acorr(x, maxlag, onesided, axis)
+r_y = acorr(x, maxlag, onesided, axis)
+
+np.testing.assert_array_almost_equal(y, r_y)
