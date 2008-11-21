@@ -60,6 +60,6 @@ cdef int acorr_double(double* x, int nx, int maxlag, int onesided, double* y):
             for j in range(nx-i):
                 y[i+maxlag] += x[j] * x[i+j]
         for i in range(maxlag):
-            y[i] = y[maxlag+1-i]
+            y[i] = y[2*maxlag-i]
 
     return 0
