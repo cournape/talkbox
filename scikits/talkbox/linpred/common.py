@@ -1,5 +1,9 @@
+import numpy as np
+
 from scipy.signal import lfilter
+
 from scikits.talkbox.linpred import lpc
+from scikits.talkbox.tools.ffilter import slfilter
 
 def lpcres(signal, order):
     """Compute the LPC residual of a signal.
@@ -14,7 +18,9 @@ def lpcres(signal, order):
     Parameters
     ----------
     signal : array-like
-        input signal
+        input signal. If rank of signal is 2, each row is assumed to be an
+        independant signal on which the LPC is computed. Rank > 2 is not
+        supported.
     order : int
         LPC order
 
@@ -32,4 +38,10 @@ def lpcres(signal, order):
     In AR modelling, the residual is simply the estimated excitation of the AR
     filter.
     """
-    return lfilter(lpc(signal, order)[0], 1., signal)
+    if signal.ndim == 1:
+        return lfilter(lpc(signal, order)[0], 1., signal)
+    elif signal.ndim == 2:
+        cf = lpc(signal, order, axis=-1)[0]
+        return slfilter(cf, np.ones((cf.shape[0], 1)), signal)
+    else:
+        raise ValueError("Input of rank > 2 not supported yet")

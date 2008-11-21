@@ -2,11 +2,13 @@ import numpy as np
 from numpy.testing import *
 from unittest import TestCase
 
+from scipy.signal import lfilter
+
 from scikits.talkbox.tools import acorr
 
 from scikits.talkbox.linpred.py_lpc import lpc_ref, levinson_1d as py_levinson
 from scikits.talkbox.linpred._lpc import levinson as c_levinson
-from scikits.talkbox.linpred.levinson_lpc import levinson, acorr_lpc
+from scikits.talkbox.linpred.levinson_lpc import levinson, acorr_lpc, lpc
 from scikits.talkbox.linpred.common import lpcres
 
 def test_acorr_lpc():
@@ -302,12 +304,25 @@ class TestLevinson(_LevinsonCommon):
 
 class TestLPCResidual(TestCase):
     def test_simple(self):
+        """Testing LPC residual of one signal."""
         x = np.linspace(0, 10, 11)
         r_res = np.array([0.,  1.,  1.08531469, 1.23776224, 1.39020979,
                           1.54265734, 1.6951049, 1.84755245, 2., 2.15244755,
                           2.3048951 ])
 
         res = lpcres(x, 2) 
+        assert_array_almost_equal(res, r_res)
+
+    def test_r2(self):
+        """Testing LPC residual of a set of windows."""
+        order = 12
+        x = np.random.randn(10, 24)
+
+        res = lpcres(x, order)
+        r_res = np.empty(x.shape, x.dtype)
+        for i in range(10):
+            r_res[i] = lfilter(lpc(x[i], order)[0], 1., x[i])
+
         assert_array_almost_equal(res, r_res)
 
 if __name__ == "__main__":
