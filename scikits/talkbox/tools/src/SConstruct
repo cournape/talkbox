@@ -7,5 +7,8 @@ env.Append(CPPPATH = ["/usr/include/python2.5"] + get_numpy_include_dirs())
 env.Append(CFLAGS = ["-Wall", "-Wextra", "-W"])
 env.Append(CFLAGS = ["-O3", "-funroll-loops"])
 
-env.SharedLibrary("cffilter.c", SHLIBPREFIX="")
-env.SharedLibrary("cacorr.c", SHLIBPREFIX="")
+env["LDMODULESUFFIX"] = ".so"
+env["LDMODULEPREFIX"] = ""
+env.Append(LINKFLAGS="-undefined dynamic_lookup")
+env.LoadableModule("cffilter.c")
+env.LoadableModule("cacorr.c")
