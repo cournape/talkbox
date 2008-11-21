@@ -1,0 +1,10 @@
+from numpy.distutils.misc_util import get_numpy_include_dirs
+
+env = Environment()
+DefaultEnvironment(tools = [])
+
+env.Append(CPPPATH = ["/usr/include/python2.5"] + get_numpy_include_dirs())
+env.Append(CFLAGS = ["-Wall", "-Wextra", "-W"])
+env.Append(CFLAGS = ["-O3", "-funroll-loops"])
+
+env.SharedLibrary("cffilter.c", SHLIBPREFIX="")
