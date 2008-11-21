@@ -13,8 +13,8 @@ def acorr(c_np.ndarray x, int maxlag, int onesided, int axis):
     if not x.dtype == np.float64:
         raise ValueError("Only float64 supported for now")
 
-    if not axis == -1:
-        raise ValueError("Axis != -1 not supported yet")
+    if not axis == 1:
+        raise ValueError("Axis != 1 not supported yet")
     if x.ndim > 2:
         raise ValueError("Rank > 2 not supported yet")
 
@@ -60,6 +60,6 @@ cdef int acorr_double(double* x, int nx, int maxlag, int onesided, double* y):
             for j in range(nx-i):
                 y[i+maxlag] += x[j] * x[i+j]
         for i in range(maxlag):
-            y[i] = y[maxlag+2-i]
+            y[i] = y[maxlag+1-i]
 
     return 0
