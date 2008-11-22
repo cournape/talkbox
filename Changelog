@@ -1,3 +1,7 @@
+Sat, 22 Nov 2008 11:01:03 +0900
+	* Add a cython version of direct implementation (wo FFT)
+	autocorrelation
+
 Fri, 21 Nov 2008 20:59:57 +0900
 	* Add a function slfilter in tools to filter a set of windows
 	* Add a cython version of slfilter
