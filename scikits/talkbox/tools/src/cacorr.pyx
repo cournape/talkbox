@@ -13,11 +13,12 @@ def acorr(c_np.ndarray x, maxlag=None, onesided=False, axis=-1):
     if not x.dtype == np.float64:
         raise ValueError("Only float64 supported for now")
 
+    if not x.ndim == 2:
+        raise ValueError("Rank != 2 not supported yet")
+
     axis = axis % x.ndim
     if not axis == 1:
         raise ValueError("Axis != 1 not supported yet")
-    if x.ndim > 2:
-        raise ValueError("Rank > 2 not supported yet")
 
     tx = np.ascontiguousarray(x)
 
