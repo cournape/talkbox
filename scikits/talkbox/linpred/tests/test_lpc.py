@@ -325,5 +325,8 @@ class TestLPCResidual(TestCase):
 
         assert_array_almost_equal(res, r_res)
 
+        res = lpcres(x, order, usefft=False)
+        assert_array_almost_equal(res, r_res)
+
 if __name__ == "__main__":
     run_module_suite()

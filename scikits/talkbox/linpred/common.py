@@ -3,9 +3,11 @@ import numpy as np
 from scipy.signal import lfilter
 
 from scikits.talkbox.linpred import lpc
+from scikits.talkbox.linpred.levinson_lpc import levinson
 from scikits.talkbox.tools import slfilter
+from scikits.talkbox.tools.cacorr import acorr
 
-def lpcres(signal, order):
+def lpcres(signal, order, usefft=True):
     """Compute the LPC residual of a signal.
 
     The LPC residual is the 'error' signal from LPC analysis, and is defined
@@ -41,7 +43,11 @@ def lpcres(signal, order):
     if signal.ndim == 1:
         return lfilter(lpc(signal, order)[0], 1., signal)
     elif signal.ndim == 2:
-        cf = lpc(signal, order, axis=-1)[0]
+        if usefft:
+            cf = lpc(signal, order, axis=-1)[0]
+        else:
+            c = acorr(signal, maxlag=order, onesided=True)/signal.shape[-1]
+            cf = levinson(c, order, axis=-1)[0]
         return slfilter(cf, np.ones((cf.shape[0], 1)), signal)
     else:
         raise ValueError("Input of rank > 2 not supported yet")
