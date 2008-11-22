@@ -30,11 +30,11 @@ def acorr(c_np.ndarray x, maxlag=None, onesided=False, axis=-1):
     nfr = tx.shape[0]
     nx = tx.shape[axis]
     if onesided:
-        ny = maxlag+1
+        ny = raw_maxlag+1
         ty = np.zeros((nfr, ny), x.dtype)
         raw_onesided = 1
     else:
-        ny = 2*maxlag+1
+        ny = 2*raw_maxlag+1
         ty = np.zeros((nfr, ny), x.dtype)
         raw_onesided = 0
 
