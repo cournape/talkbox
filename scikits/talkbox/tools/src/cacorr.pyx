@@ -23,7 +23,7 @@ def acorr(c_np.ndarray x, maxlag=None, onesided=False, axis=-1):
     tx = np.ascontiguousarray(x)
 
     if maxlag is None:
-        raw_maxlag = x.shape[axis]
+        raw_maxlag = x.shape[axis] - 1
     else:
         raw_maxlag = maxlag
 
