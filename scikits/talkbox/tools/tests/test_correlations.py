@@ -31,18 +31,21 @@ class _TestCorrCommon(TestCase):
                     2652.,  2970.,  3289.,  2970.,  2652.,  2336.,  2023.,  1714.,
                     1410.,  1112.,   821.,   538.,   264.]])
 
-class TestAcorr(_TestCorrCommon):
     def test_simple(self):
         """Test autocorrelation for a rank 1 array."""
-        a = acorr(self.X)
+        a = self.acorr(self.X)
         assert_array_almost_equal(a, self.Y)
 
     def test_axis0(self):
         """Test autocorrelation along default axis."""
-        a = acorr(self.Xm)
+        a = self.acorr(self.Xm)
         assert_array_almost_equal(a, self.Ym)
 
     def test_axis1(self):
         """Test autocorrelation along axis 0."""
-        a = acorr(self.Xm.T, axis=0)
+        a = self.acorr(self.Xm.T, axis=0)
         assert_array_almost_equal(a, self.Ym.T)
+
+class TestAcorr(_TestCorrCommon):
+    def setUp(self):
+        self.acorr = acorr
