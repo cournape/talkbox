@@ -2,7 +2,7 @@ import numpy as np
 cimport numpy as c_np
 cimport stdlib
 
-def acorr(c_np.ndarray x, int maxlag, int onesided, int axis):
+def acorr(c_np.ndarray x, maxlag=None, onesided=False, axis=-1):
     """Cython version of autocorrelation, direct implementation. This can be
     faster than FFT for small size or for maxlag << x.shape[axis]."""
     cdef double *raw_x, *raw_y
@@ -13,6 +13,7 @@ def acorr(c_np.ndarray x, int maxlag, int onesided, int axis):
     if not x.dtype == np.float64:
         raise ValueError("Only float64 supported for now")
 
+    axis = axis % x.ndim
     if not axis == 1:
         raise ValueError("Axis != 1 not supported yet")
     if x.ndim > 2:
