@@ -1,3 +1,6 @@
+Tue, 25 Nov 2008 18:14:52 +0900
+	* Release 0.2.1
+
 Sat, 22 Nov 2008 11:01:03 +0900
 	* Add a cython version of direct implementation (wo FFT)
 	autocorrelation
