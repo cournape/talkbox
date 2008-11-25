@@ -1,6 +1,9 @@
-import levinson_lpc
+__all__ = []
+
 from levinson_lpc import *
+import levinson_lpc
 __all__ = levinson_lpc.__all__
 
-from common import lpcres
-__all__ += ['lpcres']
+#from common import *
+#import common
+#__all__ += common.__all__

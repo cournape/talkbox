@@ -7,6 +7,8 @@ from scikits.talkbox.linpred.levinson_lpc import levinson
 from scikits.talkbox.tools import slfilter
 from scikits.talkbox.tools.cacorr import acorr
 
+__all__ = ["lpcres"]
+
 def lpcres(signal, order, usefft=True):
     """Compute the LPC residual of a signal.
 
