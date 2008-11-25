@@ -2,8 +2,8 @@ import numpy as np
 
 from scipy.signal import lfilter
 
-from scikits.talkbox.linpred import lpc
-from scikits.talkbox.linpred.levinson_lpc import levinson
+#from scikits.talkbox.linpred import lpc
+from scikits.talkbox.linpred.levinson_lpc import levinson, lpc
 from scikits.talkbox.tools import slfilter
 from scikits.talkbox.tools.cacorr import acorr
 
