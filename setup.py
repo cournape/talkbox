@@ -34,7 +34,7 @@ MAINTAINER_EMAIL    = 'david@ar.media.kyoto-u.ac.jp',
 URL                 = 'http://projects.scipy.org/scipy/scikits'
 LICENSE             = 'MIT'
 DOWNLOAD_URL        = URL
-VERSION             = "0.2"
+VERSION             = "0.3"
 
 import setuptools
 from numpy.distutils.core import setup
