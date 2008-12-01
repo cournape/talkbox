@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-# Last Change: Tue Sep 23 04:00 PM 2008 J
+# Last Change: Tue Nov 25 11:00 PM 2008 J
 
 # Copyright (C) 2008 Cournapeau David <cournape@gmail.com>
 
@@ -34,7 +34,7 @@ MAINTAINER_EMAIL    = 'david@ar.media.kyoto-u.ac.jp',
 URL                 = 'http://projects.scipy.org/scipy/scikits'
 LICENSE             = 'MIT'
 DOWNLOAD_URL        = URL
-VERSION             = "0.2.1"
+VERSION             = "0.2.2"
 
 import setuptools
 from numpy.distutils.core import setup
