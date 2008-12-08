@@ -8,6 +8,7 @@ def configuration(parent_package='', top_path=None):
     config.add_subpackage('spectral')
     config.add_subpackage('transforms')
     config.add_subpackage('tools')
+    config.add_subpackage('misc')
     return config
 
 if __name__ == "__main__":
