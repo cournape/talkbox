@@ -9,25 +9,26 @@ from scikits.talkbox import segment_axis
 
 from mel import hz2mel
 
-def mfcc(input):
+def mfcc(input, nwin=256, nfft=512, fs=16000, nceps=13):
     # MFCC parameters: taken from auditory toolbox
-    nwin = 256
     over = nwin - 160
     prefac = 0.97
-    nfft = 512
-    fs = 16000
 
     #lowfreq = 400 / 3.
     lowfreq = 133.33
     #highfreq = 6855.4976
     linsc = 200/3.
     logsc = 1.0711703
-    nceps = 13
 
     nlinfil = 13
     nlogfil = 27
     nfil = nlinfil + nlogfil
 
+    w = hamming(nwin, sym=0)
+
+    #------------------------
+    # Compute the filter bank
+    #------------------------
     # Compute start/middle/end points of the triangular filters
     freqs = np.zeros(nfil+2)
     freqs[:nlinfil] = lowfreq + np.arange(nlinfil) * linsc
@@ -52,18 +53,18 @@ def mfcc(input):
         fbank[i][lid] = lslope * (nfreqs[lid] - low)
         fbank[i][rid] = rslope * (hi - nfreqs[rid])
 
+    #------------------
+    # Compute the MFCC 
+    #------------------
     extract = preemp(input, prefac)
-    framed = segment_axis(extract, nwin, over)
-    w = hamming(nwin, sym=0)
+    framed = segment_axis(extract, nwin, over) * w
 
-    ceps = np.empty((framed.shape[0], nceps))
-    spec = np.empty((framed.shape[0], nfft))
-    espec = np.empty((framed.shape[0], nfil))
-    for i in range(framed.shape[0]):
-        frame = framed[i] * w
-        spec[i] = np.abs(fft(frame, nfft))
-        espec[i] = np.log10(np.dot(fbank, spec[i]))
-        ceps[i] = dct2(espec[i], norm='ortho')[:nceps]
+    # Compute the spectrum magnitude
+    spec = np.abs(fft(framed, nfft, axis=-1))
+    # Filter the spectrum trhough the triangle filterbank
+    espec = np.log10(np.dot(spec, fbank.T))
+    # Use the DCT to 'compress' the coefficients (spectrum -> cepstrum domain)
+    ceps = dct2(espec, norm='ortho', axis=-1)[:, :nceps]
 
     return ceps
 
