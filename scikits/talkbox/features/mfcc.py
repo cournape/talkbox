@@ -45,6 +45,35 @@ def trfbank(fs, nfft, lowfreq, linsc, logsc, nlinfilt, nlogfilt):
     return fbank
 
 def mfcc(input, nwin=256, nfft=512, fs=16000, nceps=13):
+    """Compute Mel Frequency Cepstral Coefficients.
+
+    Parameters
+    ----------
+    input: ndarray
+        input from which the coefficients are computed
+
+    Returns
+    -------
+    ceps: ndarray
+        Mel-cepstrum coefficients
+
+    Notes
+    -----
+    MFCC are computed as follows:
+        * Pre-processing in time-domain
+        * Compute spectrum by windowing with a Hamming window
+        * Filter the signal in the spectral domain with a triangular
+        filter-bank, whose filters are approximatively spaced on the mel scale
+        * Transform the spectral signal in the log-domain
+        * Compute the DCT of the log-spectrum
+
+    References
+    ----------
+    .. [1] S.B. Davis and P. Mermelstein, "Comparison of parametric
+           representations for monosyllabic word recognition in continuously
+           spoken sentences", IEEE Trans. Acoustics. Speech, Signal Proc.
+           ASSP-28 (4): 357-366, August 1980."""
+        
     # MFCC parameters: taken from auditory toolbox
     over = nwin - 160
     # Pre-emphasis factor (to take into account the -6dB rolloff of the
