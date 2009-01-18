@@ -1,3 +1,7 @@
+Sun, 18 Jan 2009 20:55:54 +0900
+	* Implemented MFCC computation
+	* Assumes scipy 0.8 installed (for the DCT)
+
 Tue, 25 Nov 2008 18:14:52 +0900
 	* Release 0.2.1
 
