@@ -47,6 +47,8 @@ def trfbank(fs, nfft, lowfreq, linsc, logsc, nlinfilt, nlogfilt):
 def mfcc(input, nwin=256, nfft=512, fs=16000, nceps=13):
     # MFCC parameters: taken from auditory toolbox
     over = nwin - 160
+    # Pre-emphasis factor (to take into account the -6dB rolloff of the
+    # radiation at the lips level)
     prefac = 0.97
 
     #lowfreq = 400 / 3.
