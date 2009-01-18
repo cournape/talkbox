@@ -73,7 +73,7 @@ def mfcc(input, nwin=256, nfft=512, fs=16000, nceps=13):
 
     # Compute the spectrum magnitude
     spec = np.abs(fft(framed, nfft, axis=-1))
-    # Filter the spectrum trhough the triangle filterbank
+    # Filter the spectrum through the triangle filterbank
     espec = np.log10(np.dot(spec, fbank.T))
     # Use the DCT to 'compress' the coefficients (spectrum -> cepstrum domain)
     ceps = dct2(espec, norm='ortho', axis=-1)[:, :nceps]
