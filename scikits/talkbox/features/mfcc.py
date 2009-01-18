@@ -56,6 +56,8 @@ def mfcc(input, nwin=256, nfft=512, fs=16000, nceps=13):
     -------
     ceps: ndarray
         Mel-cepstrum coefficients
+    mspec: ndarray
+        Log-spectrum in the mel-domain.
 
     Notes
     -----
@@ -103,11 +105,11 @@ def mfcc(input, nwin=256, nfft=512, fs=16000, nceps=13):
     # Compute the spectrum magnitude
     spec = np.abs(fft(framed, nfft, axis=-1))
     # Filter the spectrum through the triangle filterbank
-    espec = np.log10(np.dot(spec, fbank.T))
+    mspec = np.log10(np.dot(spec, fbank.T))
     # Use the DCT to 'compress' the coefficients (spectrum -> cepstrum domain)
-    ceps = dct2(espec, norm='ortho', axis=-1)[:, :nceps]
+    ceps = dct2(mspec, norm='ortho', axis=-1)[:, :nceps]
 
-    return ceps
+    return ceps, mspec
 
 def preemp(input, p):
     """Pre-emphasis filter."""
