@@ -3,7 +3,7 @@ import numpy as np
 from scipy.io import loadmat
 from scipy.signal import lfilter, hamming
 from scipy.fftpack import fft
-from scipy.fftpack.realtransforms import dct2
+from scipy.fftpack.realtransforms import dct
 
 from scikits.talkbox import segment_axis
 
@@ -107,7 +107,7 @@ def mfcc(input, nwin=256, nfft=512, fs=16000, nceps=13):
     # Filter the spectrum through the triangle filterbank
     mspec = np.log10(np.dot(spec, fbank.T))
     # Use the DCT to 'compress' the coefficients (spectrum -> cepstrum domain)
-    ceps = dct2(mspec, norm='ortho', axis=-1)[:, :nceps]
+    ceps = dct(mspec, type=2, norm='ortho', axis=-1)[:, :nceps]
 
     return ceps, mspec
 
