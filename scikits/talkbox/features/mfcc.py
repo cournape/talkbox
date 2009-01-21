@@ -42,7 +42,7 @@ def trfbank(fs, nfft, lowfreq, linsc, logsc, nlinfilt, nlogfilt):
         fbank[i][lid] = lslope * (nfreqs[lid] - low)
         fbank[i][rid] = rslope * (hi - nfreqs[rid])
 
-    return fbank
+    return fbank, freqs
 
 def mfcc(input, nwin=256, nfft=512, fs=16000, nceps=13):
     """Compute Mel Frequency Cepstral Coefficients.
@@ -62,11 +62,11 @@ def mfcc(input, nwin=256, nfft=512, fs=16000, nceps=13):
     Notes
     -----
     MFCC are computed as follows:
-        * Pre-processing in time-domain
-        * Compute spectrum by windowing with a Hamming window
+        * Pre-processing in time-domain (pre-emphasizing)
+        * Compute the spectrum amplitude by windowing with a Hamming window
         * Filter the signal in the spectral domain with a triangular
-        filter-bank, whose filters are approximatively spaced on the mel scale
-        * Transform the spectral signal in the log-domain
+        filter-bank, whose filters are approximatively linearly spaced on the
+        mel scale, and have equal bandwith in the mel scale
         * Compute the DCT of the log-spectrum
 
     References
@@ -75,10 +75,10 @@ def mfcc(input, nwin=256, nfft=512, fs=16000, nceps=13):
            representations for monosyllabic word recognition in continuously
            spoken sentences", IEEE Trans. Acoustics. Speech, Signal Proc.
            ASSP-28 (4): 357-366, August 1980."""
-        
+
     # MFCC parameters: taken from auditory toolbox
     over = nwin - 160
-    # Pre-emphasis factor (to take into account the -6dB rolloff of the
+    # Pre-emphasis factor (to take into account the -6dB/octave rolloff of the
     # radiation at the lips level)
     prefac = 0.97
 
@@ -94,10 +94,10 @@ def mfcc(input, nwin=256, nfft=512, fs=16000, nceps=13):
 
     w = hamming(nwin, sym=0)
 
-    fbank = trfbank(fs, nfft, lowfreq, linsc, logsc, nlinfil, nlogfil)
+    fbank = trfbank(fs, nfft, lowfreq, linsc, logsc, nlinfil, nlogfil)[0]
 
     #------------------
-    # Compute the MFCC 
+    # Compute the MFCC
     #------------------
     extract = preemp(input, prefac)
     framed = segment_axis(extract, nwin, over) * w
@@ -109,7 +109,7 @@ def mfcc(input, nwin=256, nfft=512, fs=16000, nceps=13):
     # Use the DCT to 'compress' the coefficients (spectrum -> cepstrum domain)
     ceps = dct(mspec, type=2, norm='ortho', axis=-1)[:, :nceps]
 
-    return ceps, mspec
+    return ceps, mspec, spec
 
 def preemp(input, p):
     """Pre-emphasis filter."""
