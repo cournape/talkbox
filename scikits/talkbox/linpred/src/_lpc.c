@@ -15,9 +15,9 @@ int array_levinson_1d(PyArrayObject *arr, long order, PyArrayObject** alpccoeff,
 	              PyArrayObject **klpccoeff, PyArrayObject **elpc)
 {
 	double *tmp;
-	npy_int alpc_size = (order + 1);
-	npy_int klpc_size = order;
-	npy_int elpc_size = 1;
+	npy_intp alpc_size = (order + 1);
+	npy_intp klpc_size = order;
+	npy_intp elpc_size = 1;
 
 	*alpccoeff = (PyArrayObject*)PyArray_SimpleNew(1, &alpc_size,
                                                        PyArray_DOUBLE);
@@ -66,9 +66,9 @@ int array_levinson_nd(PyArrayObject *arr, long order,
 	double *err;
 	double *data;
 	npy_int rank;
-	npy_int alpc_size[NPY_MAXDIMS];
-	npy_int klpc_size[NPY_MAXDIMS];
-	npy_int elpc_size[NPY_MAXDIMS];
+	npy_intp alpc_size[NPY_MAXDIMS];
+	npy_intp klpc_size[NPY_MAXDIMS];
+	npy_intp elpc_size[NPY_MAXDIMS];
 	npy_int n, nrepeat;
 	int i;
 
