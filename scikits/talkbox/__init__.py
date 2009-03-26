@@ -8,6 +8,8 @@ import linpred
 from linpred import *
 __all__ += linpred.__all__
 
+import version
+
 from numpy.testing import Tester
 
 test = Tester().test
