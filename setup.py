@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-# Last Change: Thu Mar 26 05:00 PM 2009 J
+# Last Change: Thu Mar 26 06:00 PM 2009 J
 
 # Copyright (C) 2008 Cournapeau David <cournape@gmail.com>
 
@@ -32,7 +32,18 @@ MAINTAINER_EMAIL    = 'david@ar.media.kyoto-u.ac.jp',
 URL                 = 'http://projects.scipy.org/scipy/scikits'
 LICENSE             = 'MIT'
 DOWNLOAD_URL        = URL
-VERSION             = "0.2.2"
+
+MAJOR = 0
+MINOR = 2
+MICRO = 2
+DEV = True
+
+CLASSIFIERS = [ 'Development Status :: 1 - Planning',
+              'Environment :: Console',
+              'Intended Audience :: Developers',
+              'Intended Audience :: Science/Research',
+              'License :: OSI Approved :: BSD License',
+              'Topic :: Scientific/Engineering']
 
 import setuptools
 from numpy.distutils.core import setup
@@ -69,11 +80,5 @@ if __name__ == "__main__":
         license = LICENSE,
         #test_suite="tester", # for python setup.py test
         zip_safe = True, # the package can run out of an .egg file
-        classifiers =
-            [ 'Development Status :: 1 - Planning',
-              'Environment :: Console',
-              'Intended Audience :: Developers',
-              'Intended Audience :: Science/Research',
-              'License :: OSI Approved :: BSD License',
-              'Topic :: Scientific/Engineering'],
+        classifiers = CLASSIFIERS,
     )
