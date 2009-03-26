@@ -28,7 +28,7 @@ DOWNLOAD_URL        = URL
 MAJOR = 0
 MINOR = 2
 MICRO = 3
-DEV = True
+DEV = False
 
 CLASSIFIERS = [ 'Development Status :: 1 - Planning',
               'Environment :: Console',
