@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-# Last Change: Tue Nov 25 11:00 PM 2008 J
+# Last Change: Thu Mar 26 05:00 PM 2009 J
 
 # Copyright (C) 2008 Cournapeau David <cournape@gmail.com>
 
@@ -19,9 +19,7 @@ point. The following features are planned before a 1.0 release:
 
 I want talkbox to be useful for both research and educational purpose. As such,
 a requirement is to have a pure python implementation for everything - for
-educational purpose and reproducibility - and optional C/C++/Lisp for speed -
-because waiting for your mfcc computation one hour before ICASSP submission
-deadline :)."""
+educational purpose and reproducibility - and optional C for speed."""
 
 import os
 import sys
