@@ -88,6 +88,11 @@ def test_sdist():
     sh('cd dist/scikits.talkbox-%s; python setup.py build' % common.build_fverstring())
 
 @task
+def clean():
+    for d in ['scikits.talkbox.egg-info', 'build', 'dist', 'install']:
+        paver.path.path(d).rmtree()
+
+@task
 #@needs(['latex', 'html'])
 def dmg():
     builddir = path("build") / "dmg"
