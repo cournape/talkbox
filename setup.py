@@ -42,6 +42,6 @@ if __name__ == "__main__":
         long_description = LONG_DESCRIPTION,
         license = LICENSE,
         #test_suite="tester", # for python setup.py test
-        zip_safe = True, # the package can run out of an .egg file
+        zip_safe = False, # because of tests
         classifiers = CLASSIFIERS,
     )
