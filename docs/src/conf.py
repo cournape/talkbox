@@ -20,19 +20,9 @@ from os.path import join as pjoin, dirname as pdirname
 sys.path.append(pjoin(pdirname(__file__), os.pardir, 'ext'))
 
 import sphinx
-
-def check_min_version():
-    try:
-        maj, min = [int(i) for i in sphinx.__version__.split('.')]
-    except:
-        raise RuntimeError("Could not parse version (was %s)" %
-                           sphinx.__version__)
-
-    if min < 5:
-        raise RuntimeError("You should use sphinx 0.5 (dev version ?) "\
-                           "to build talkbox documentation")
-
-check_min_version()
+# Check Sphinx version
+if sphinx.__version__ < "0.5":
+    raise RuntimeError("Sphinx 0.5.dev or newer required")
 
 # General configuration
 # ---------------------
