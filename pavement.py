@@ -6,7 +6,7 @@ import shutil
 import sphinx
 
 import setuptools
-import distutils
+#import distutils
 import numpy.distutils
 
 try:
@@ -81,7 +81,7 @@ def build_version_files(options):
         write_version(os.path.join("docs", "src", "talkbox_version.py"))
 
 @task
-@needs('setuptools.sdist')
+@needs('paver.sdist')
 def test_sdist():
     """Test the tarball builds."""
     sh('cd dist; tar -xzf %s' % tarball_name())
