@@ -8,7 +8,6 @@ def nextpow2(n):
 
     Notes
     -----
-
     Infinite and nan are left untouched, negative values are not allowed."""
     if np.any(n < 0):
         raise ValueError("n should be > 0")
@@ -48,20 +47,20 @@ def acorr(x, axis=-1, onesided=False, scale='none'):
 
     Parameters
     ----------
-        x : array-like
-            signal to correlate.
-        axis : int
-            axis along which autocorrelation is computed.
-        onesided: bool, optional
-            if True, only returns the right side of the autocorrelation.
-        scale: {'none', 'coeff'}
-            scaling mode. If 'coeff', the correlation is normalized such as the
-            0-lag is equal to 1.
+    x : array-like
+        signal to correlate.
+    axis : int
+        axis along which autocorrelation is computed.
+    onesided: bool, optional
+        if True, only returns the right side of the autocorrelation.
+    scale: {'none', 'coeff'}
+        scaling mode. If 'coeff', the correlation is normalized such as the
+        0-lag is equal to 1.
 
     Notes
     -----
-        Use fft for computation: is more efficient than direct computation for
-        relatively large n.
+    Use fft for computation: is more efficient than direct computation for
+    relatively large n.
     """
     if not np.isrealobj(x):
         raise ValueError("Complex input not supported yet")
