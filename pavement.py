@@ -18,24 +18,40 @@ except ImportError, e:
 
 import paver
 import paver.doctools
-from paver.easy import Bunch, options, task, needs, dry, sh
+from paver.easy import Bunch, options, task, needs, dry, sh, call_task
 from paver.setuputils import setup
 
 import common
 
-setup(
-    name=common.DISTNAME,
-    namespace_packages=['scikits'],
-    packages=setuptools.find_packages(),
-    install_requires=common.INSTALL_REQUIRE,
-    version=common.VERSION,
-    include_package_data=True,
-)
+# Virtualenv bootstrap stuff
+BOOTSTRAP_DIR = "bootstrap"
+BOOTSTRAP_PYEXEC = "%s/bin/python" % BOOTSTRAP_DIR
+BOOTSTRAP_SCRIPT = "%s/bootstrap.py" % BOOTSTRAP_DIR
+
+#setup(
+#    name=common.DISTNAME,
+#    namespace_packages=['scikits'],
+#    packages=setuptools.find_packages(),
+#    install_requires=common.INSTALL_REQUIRE,
+#    version=common.VERSION,
+#    include_package_data=True,
+#)
 
 options(
         sphinx=Bunch(builddir="build", sourcedir="src"),
-        virtualenv=Bunch(script_name="install/bootstrap.py")
+        virtualenv=Bunch(script_name=BOOTSTRAP_SCRIPT,
+            packages_to_install=["sphinx==0.6.1", "numpydoc"])
 )
+
+# Bootstrap stuff
+@task
+def bootstrap():
+    """create virtualenv in ./install"""
+    install = paver.path.path(BOOTSTRAP_DIR)
+    if not install.exists():
+        install.mkdir()
+    call_task('paver.virtual.bootstrap')
+    sh('cd %s; %s bootstrap.py' % (BOOTSTRAP_DIR, sys.executable))
 
 def macosx_version():
     st = subprocess.Popen(["sw_vers"], stdout=subprocess.PIPE)
@@ -57,15 +73,6 @@ def tarball_name():
     pyver = ".".join([str(i) for i in sys.version_info[:2]])
     return "scikits.talkbox-%s.tar.gz" % (common.build_fverstring())
 
-VPYEXEC = "install/bin/python"
-
-@task
-@needs('paver.virtual.bootstrap')
-def bootstrap():
-    """create virtualenv in ./install"""
-    # XXX: fix the mkdir
-    sh('mkdir -p install')
-    sh('cd install; %s bootstrap.py' % sys.executable)
 
 @task
 @needs('bootstrap')
