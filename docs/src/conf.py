@@ -20,7 +20,7 @@ from os.path import join as pjoin, dirname as pdirname
 sys.path.extend([
     os.path.abspath(os.path.dirname(__file__)),
     # numpy standard doc extensions
-    os.path.join(os.path.dirname(__file__), '..', 'sphinxext')])
+    os.path.join(os.path.dirname(__file__), '..', 'ext')])
 
 import sphinx
 # Check Sphinx version
@@ -35,8 +35,14 @@ import talkbox_version
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest',
-              'sphinx.ext.intersphinx', 'numpydoc', 'only_directives',
+              'sphinx.ext.intersphinx', 'numpydoc', 'plot_directive',
               'sphinx.ext.pngmath.']
+
+if sphinx.__version__ >= "0.7":
+    extensions.append('sphinx.ext.autosummary')
+else:
+    extensions.append('sphinx.ext.autosummary')
+    extensions.append('only_directives')
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['.templates']

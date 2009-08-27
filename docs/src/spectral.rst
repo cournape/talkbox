@@ -65,7 +65,7 @@ noise::
 
 Plotting the log periodogram then gives:
 
-.. htmlonly::
+.. only:: html
         .. image:: examples/periodogram_1.png
 
 The number of points used for the FFT has been set high to highlight the lobe,

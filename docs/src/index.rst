@@ -3,7 +3,7 @@
 ###################
 
 
-.. htmlonly::
+.. only:: html
 
     :Release: |version|
     :Date: |today|
@@ -18,7 +18,7 @@
 .. Indices and tables
 .. ==================
 
-.. htmlonly::
+.. only:: html
 
   * :ref:`genindex`
   * :ref:`modindex`
