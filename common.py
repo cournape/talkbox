@@ -48,6 +48,7 @@ def build_fverstring():
 
 def write_version(fname):
     f = open(fname, "w")
+    f.writelines("# THIS FILE IS GENERATED FROM THE SETUP.PY. DO NOT EDIT.\n")
     f.write("""
 short_version='%s'
 version=short_version
@@ -55,6 +56,17 @@ dev=%s
 if dev:
     version += '.dev'
 """ % (build_verstring(), DEV))
+    f.close()
+
+def write_info(fname):
+    f = open(fname, "w")
+    f.writelines("# THIS FILE IS GENERATED FROM THE SETUP.PY. DO NOT EDIT.\n")
+    f.writelines('"""%s"""' % descr)
+    f.writelines("""
+# version of the python module (compatibility -> use
+# scikits.talkbox.version.version instead, to be consistent with numpy)
+from version import short_version as version
+ignore  = False""")
     f.close()
 
 VERSION = build_fverstring()

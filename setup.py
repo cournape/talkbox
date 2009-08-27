@@ -14,6 +14,13 @@ from common import *
 def configuration(parent_package='', top_path=None, package_name=DISTNAME):
     if os.path.exists('MANIFEST'): os.remove('MANIFEST')
 
+    write_info(os.path.join("scikits", "talkbox", "info.py"))
+    write_version(os.path.join("scikits", "talkbox", "version.py"))
+    # XXX: find a way to include the doc in sdist
+    if os.path.exists(os.path.join("docs", "src")):
+        write_version(os.path.join("docs", "src", "talkbox_version.py"))
+    pkg_prefix_dir = os.path.join('scikits', 'talkbox')
+
     from numpy.distutils.misc_util import Configuration
     config = Configuration(None, parent_package, top_path,
         namespace_packages = ['scikits'])
