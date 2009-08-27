@@ -81,11 +81,11 @@ def build_version_files(options):
         write_version(os.path.join("docs", "src", "talkbox_version.py"))
 
 @task
-@needs('paver.sdist')
+@needs('release_sdist')
 def test_sdist():
     """Test the tarball builds."""
     sh('cd dist; tar -xzf %s' % tarball_name())
-    sh('cd dist/scikits.talkbox-%s; python setup.py build' % common.build_fverstring())
+    #sh('cd dist/scikits.talkbox-%s; python setup.py build' % common.build_fverstring())
 
 @task
 def clean():
