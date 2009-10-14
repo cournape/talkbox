@@ -6,7 +6,7 @@ def acorr(c_np.ndarray x, maxlag=None, onesided=False, axis=-1):
     """Cython version of autocorrelation, direct implementation. This can be
     faster than FFT for small size or for maxlag << x.shape[axis]."""
     cdef double *raw_x, *raw_y
-    cdef int raw_maxlag, nfr, raw_onesided, nx, ny
+    cdef int raw_maxlag, nfr, raw_onesided, nx, ny, i
     cdef c_np.ndarray[double, ndim=2] tx
     cdef c_np.ndarray[double, ndim=2] ty
 
