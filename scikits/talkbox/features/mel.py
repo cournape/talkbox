@@ -5,5 +5,5 @@ def hz2mel(f):
     return 1127.01048 * np.log(f/700 +1)
 
 def mel2hz(m):
-    """Convert an array of frequency in Hz into mel."""
+    """Convert an array of frequency in mel into Hz."""
     return (np.exp(m / 1127.01048) - 1) * 700
